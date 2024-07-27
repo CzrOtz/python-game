@@ -1,19 +1,19 @@
 import pygame
 
 class Hero:
-    def __init__(self, pos_x, pos_y, speed, scale, sprite_path):
-        self.pos_x = pos_x
-        self.pos_y = pos_y
-        self.speed = speed
+    def __init__(self, config):
+        self.pos_x = config["pos_x"]
+        self.pos_y = config["pos_y"]
+        self.speed = config["speed"]
         self.moving_left = False
         self.moving_right = False
         self.moving_up = False
         self.moving_down = False
-        self.scale = scale
+        self.scale = config["scale"]
         
 
         # Load the sprite directly from the PNG file
-        self.sprite = pygame.image.load(sprite_path).convert_alpha()
+        self.sprite = pygame.image.load(config["sprite_path"]).convert_alpha()
         self.width = self.sprite.get_width()
         self.height = self.sprite.get_height()
         self.sprite = pygame.transform.scale(self.sprite, (self.width * self.scale, self.height * self.scale))
@@ -46,9 +46,9 @@ class Hero:
         return (self.pos_y // (16 * self.scale))
 
     def master_movement(self, map_instance):
-        #stay the same, dont do anything
-        # initial_pos_x = self.pos_x
-        # initial_pos_y = self.pos_y
+    
+        initial_pos_x = self.pos_x
+        initial_pos_y = self.pos_y
 
         if self.moving_left:
             self.move_left()
@@ -59,11 +59,11 @@ class Hero:
         if self.moving_down:
             self.move_down()
 
-        # Check for collisions
-        # if not map_instance.check_tile_passability(self):
-        #     #stay the same, dont do anything
-        #     self.pos_x = initial_pos_x
-        #     self.pos_y = initial_pos_y
+        #add or is past the border of the screen 
+        if map_instance.collided_with(self):
+            
+            self.pos_x = initial_pos_x
+            self.pos_y = initial_pos_y
 
     def movement_flags(self, event):
         if event.type == pygame.KEYDOWN:

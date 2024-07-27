@@ -1,6 +1,8 @@
 import pygame
 import sys
 import config
+from config import map_config
+from config import hero_config
 from characters.hero import Hero
 from new_map.map_behavior import Map
 
@@ -14,11 +16,10 @@ clock = config.clock
 game_scale = 3
 hero_speed = 4
 
-# Create a Hero instance
-hero = Hero(100, 100, hero_speed, game_scale, 'characters/pngBank/tile_0097.png')
+hero = Hero(hero_config)
 
 # Create a Map instance
-game_map = Map(game_scale)
+game_map = Map(map_config)
 
 # Main game loop
 def main():
@@ -30,13 +31,17 @@ def main():
             else:
                 hero.movement_flags(event)
 
-        screen.fill(config.BROWN)
+        
 
         # Update map offset based on hero's position
         game_map.update_offset(hero.pos_x, hero.pos_y)
       
         game_map.draw()
-        game_map.check_tile_passability(hero) #this has to be converted to tile coordinates
+        
+        if game_map.collided_with(hero):
+            print("Collision detected")
+        else:
+            print("No collision detected")
 
         # Update the hero's position and handle collisions
         hero.master_movement(game_map)
