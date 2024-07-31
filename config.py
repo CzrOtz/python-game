@@ -28,7 +28,15 @@ hero_config = {
     "speed": 4,
     "scale": scale,
     "sprite_path": "characters/pngBank/tile_0097.png",
+    "screen_width": SCREEN_WIDTH,
+    "screen_height": SCREEN_HEIGHT,
 }
+
+enemy_1_config = {
+    
+}
+
+
 
 
 

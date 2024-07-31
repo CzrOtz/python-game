@@ -13,8 +13,7 @@ pygame.init()
 screen = config.screen
 clock = config.clock
 
-game_scale = 3
-hero_speed = 4
+
 
 hero = Hero(hero_config)
 

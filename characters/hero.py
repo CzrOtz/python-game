@@ -10,8 +10,7 @@ class Hero:
         self.moving_up = False
         self.moving_down = False
         self.scale = config["scale"]
-        
-
+        self.config = config
         # Load the sprite directly from the PNG file
         self.sprite = pygame.image.load(config["sprite_path"]).convert_alpha()
         self.width = self.sprite.get_width()
@@ -44,6 +43,7 @@ class Hero:
     
     def y_positionInTiles(self):
         return (self.pos_y // (16 * self.scale))
+    
 
     def master_movement(self, map_instance):
     
@@ -64,6 +64,9 @@ class Hero:
             
             self.pos_x = initial_pos_x
             self.pos_y = initial_pos_y
+    
+
+
 
     def movement_flags(self, event):
         if event.type == pygame.KEYDOWN:
