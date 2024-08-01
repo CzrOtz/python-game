@@ -23,8 +23,8 @@ map_config = {
 }
 
 hero_config = {
-    "pos_x": 100,
-    "pos_y": 100,
+    "pos_x": 500,
+    "pos_y": 500,
     "speed": 4,
     "scale": scale,
     "sprite_path": "characters/pngBank/tile_0097.png",
@@ -33,9 +33,20 @@ hero_config = {
 }
 
 enemy_1_config = {
-    
+    "pos_x": 300,
+    "pos_y": 300,
+    "speed" : 1.5,
+    "scale": scale,
+    "sprite_path": "characters/pngBank/tile_0108.png"
 }
 
+enemy_2_config = {
+    "pos_x": 400,
+    "pos_y": 350,
+    "speed" : 1.25,
+    "scale": scale,
+    "sprite_path": "characters/pngBank/tile_0108.png"
+}
 
 
 

@@ -3,7 +3,10 @@ import sys
 import config
 from config import map_config
 from config import hero_config
+from config import enemy_1_config
+from config import enemy_2_config
 from characters.hero import Hero
+from characters.enemy import Enemy
 from new_map.map_behavior import Map
 
 # Initialize Pygame
@@ -16,8 +19,10 @@ clock = config.clock
 
 
 hero = Hero(hero_config)
+enemy = Enemy(enemy_1_config)
+enemy2 = Enemy(enemy_2_config)
 
-# Create a Map instance
+
 game_map = Map(map_config)
 
 # Main game loop
@@ -37,18 +42,25 @@ def main():
       
         game_map.draw()
         
-        if game_map.collided_with(hero):
-            print("Collision detected")
-        else:
-            print("No collision detected")
+        # if game_map.collided_with(hero):
+        #     print("Collision detected")
+        # else:
+        #     print("No collision detected")
 
         # Update the hero's position and handle collisions
         hero.master_movement(game_map)
+        enemy.master_movement(hero)
+        enemy2.master_movement(hero)
+
 
         # Display the hero
         hero.display(screen, game_map.offset_x, game_map.offset_y)
+        enemy.display(screen, game_map)
+        enemy2.display(screen, game_map)
         
-        hero.positionInTiles()
+        # hero.positionInTiles()
+
+        # enemy.inspect(hero, game_map)
 
         pygame.display.flip()
         clock.tick(config.FPS)
