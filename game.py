@@ -1,12 +1,8 @@
 import pygame
 import sys
 import config
-from config import map_config
-from config import hero_config
-from config import enemy_1_config
-from config import enemy_2_config
 from characters.hero import Hero
-from characters.enemy import Enemy
+from characters.enemy import Ghost, Enemy
 from new_map.map_behavior import Map
 
 # Initialize Pygame
@@ -18,12 +14,12 @@ clock = config.clock
 
 
 
-hero = Hero(hero_config)
-enemy = Enemy(enemy_1_config)
-enemy2 = Enemy(enemy_2_config)
+hero = Hero(config.hero_config)
+ghost1 = Ghost(config.ghost_1_config)
+ghost2 = Ghost(config.ghost_2_config)
 
 
-game_map = Map(map_config)
+game_map = Map(config.map_config)
 
 # Main game loop
 def main():
@@ -42,21 +38,15 @@ def main():
       
         game_map.draw()
         
-        # if game_map.collided_with(hero):
-        #     print("Collision detected")
-        # else:
-        #     print("No collision detected")
-
-        # Update the hero's position and handle collisions
         hero.master_movement(game_map)
-        enemy.master_movement(hero)
-        enemy2.master_movement(hero)
+        ghost1.master_movement(hero)
+        ghost2.master_movement(hero)
 
 
         # Display the hero
         hero.display(screen, game_map.offset_x, game_map.offset_y)
-        enemy.display(screen, game_map)
-        enemy2.display(screen, game_map)
+        ghost1.display(screen, game_map)
+        ghost2.display(screen, game_map)
         
         # hero.positionInTiles()
 
@@ -65,8 +55,18 @@ def main():
         pygame.display.flip()
         clock.tick(config.FPS)
 
+        if hero.get_rect().colliderect(ghost1.get_rect()):
+            print("You died")
+            pygame.quit()
+            sys.exit()
+        
+        print(ghost1.speed)
+
     pygame.quit()
     sys.exit()
+
+
+
 
 # Entry point
 if __name__ == "__main__":
