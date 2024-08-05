@@ -3,8 +3,9 @@ import pygame
 import random
 
 # Screen settings
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+# 800 and 600 are the screen width and height
+SCREEN_WIDTH = 950
+SCREEN_HEIGHT = 950
 FPS = 60
 scale = 3
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -12,7 +13,9 @@ pygame.display.set_caption("Endless Runner Prototype")
 clock = pygame.time.Clock()
 speed_increment = 0.0001
 speed_limit = 2
-ghost_quantity = 5
+
+
+ghost_quantity = 15
 
 map_config = {
     "tilemap_path": "new_map/new_world.tmx",
@@ -27,7 +30,7 @@ map_config = {
 
 hero_config = {
     "pos_x": 700,
-    "pos_y": 500,
+    "pos_y": 850,
     "speed": 4,
     "scale": scale,
     "sprite_path": "characters/pngBank/tile_0097.png",
@@ -49,8 +52,6 @@ def generate_ghost_configs(num_ghosts):
             "speed": 1.5,
             "scale": scale,
             "sprite_path": "characters/pngBank/tile_0108.png",
-            "increment": speed_increment,
-            "speed_limit": speed_limit,
             "braking_distance": 100,
             "r_number_min": 0,
             "r_number_max": 6,

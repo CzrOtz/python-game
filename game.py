@@ -54,9 +54,9 @@ def main():
        
         for i in ghosts:
             if hero.get_rect().colliderect(i.get_rect()):
-                print("You died")
-                pygame.quit()
-                sys.exit()
+                print(f'sprite index {i} colided with you')
+                # pygame.quit()
+                # sys.exit()
         
     pygame.quit()
     sys.exit()

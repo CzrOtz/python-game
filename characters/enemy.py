@@ -8,7 +8,6 @@ class Enemy:
         self.speed = config["speed"]
         self.original_speed = self.speed  # Store the original speed
         self.scale = config["scale"]
-        self.increment_factor = config["increment"]
         self.moving_left = False
         self.moving_right = False
         self.moving_up = False
@@ -71,7 +70,7 @@ class Ghost(Enemy):
         if not self.speed_modified:  # Only modify speed if it hasn't been modified yet
             lottery_number = random.randint(self.r_number_min, self.r_number_max)
             number_drawn = random.randint(self.r_number_min, self.r_number_max)
-            
+
             if lottery_number == number_drawn:
                 self.speed = lottery_number
                 self.speed_modified = True
