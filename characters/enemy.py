@@ -71,17 +71,19 @@ class Ghost(Enemy):
         if not self.speed_modified:  # Only modify speed if it hasn't been modified yet
             lottery_number = random.randint(self.r_number_min, self.r_number_max)
             number_drawn = random.randint(self.r_number_min, self.r_number_max)
-
-            print(f'lottery_number {lottery_number}, number_drawn {number_drawn}')
-
+            
             if lottery_number == number_drawn:
                 self.speed = lottery_number
                 self.speed_modified = True
-                print("Speed modified!")
+                
 
     def _restore_speed(self):
         self.speed = self.original_speed
         self.speed_modified = False
+    
+    
+    
+    
         
         
 

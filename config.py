@@ -27,7 +27,7 @@ map_config = {
 }
 
 hero_config = {
-    "pos_x": 500,
+    "pos_x": 700,
     "pos_y": 500,
     "speed": 4,
     "scale": scale,
@@ -41,27 +41,27 @@ hero_config = {
 ghost_1_config = {
     "pos_x": 300,
     "pos_y": 300,
-    "speed" : 1.1,
+    "speed" : 1.5,
     "scale": scale,
     "sprite_path": "characters/pngBank/tile_0108.png",
     "increment": speed_increment,
     "speed_limit": speed_limit,
-    "braking_distance": 75,
+    "braking_distance": 100,
     "r_number_min": 0,
-    "r_number_max": 4,
+    "r_number_max": 6,
 }
 
 ghost_2_config = {
     "pos_x": 400,
     "pos_y": 600,
-    "speed" : 0.9,
+    "speed" : 1.5,
     "scale": scale,
     "sprite_path": "characters/pngBank/tile_0108.png",
     "increment": speed_increment,
     "speed_limit": speed_limit,
-    "braking_distance": 150,
-    "r_number_min": 0,
-    "r_number_max": 4,
+    "braking_distance": 100,
+    "r_number_min": 2,
+    "r_number_max": 5,
 }
 
 

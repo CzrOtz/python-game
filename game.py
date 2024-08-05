@@ -47,6 +47,8 @@ def main():
         hero.display(screen, game_map.offset_x, game_map.offset_y)
         ghost1.display(screen, game_map)
         ghost2.display(screen, game_map)
+
+        #screen, game_map, config.ghost_1_config, hero
         
         # hero.positionInTiles()
 
