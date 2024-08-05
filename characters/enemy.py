@@ -1,13 +1,14 @@
 import pygame
+import random
 
 class Enemy:
     def __init__(self, config):
         self.pos_x = config["pos_x"]
         self.pos_y = config["pos_y"]
         self.speed = config["speed"]
+        self.original_speed = self.speed  # Store the original speed
         self.scale = config["scale"]
         self.increment_factor = config["increment"]
-        self.speed_limit = config["speed_limit"]
         self.moving_left = False
         self.moving_right = False
         self.moving_up = False
@@ -23,82 +24,68 @@ class Enemy:
         screen.blit(self.sprite, (self.pos_x - map.offset_x, self.pos_y - map.offset_y))
     
     def move_up(self):
-        if self.speed < self.speed_limit:
-            self.speed += self.increment_factor
-
         self.pos_y -= self.speed
     
     def move_down(self):
-        if self.speed < self.speed_limit:
-            self.speed += self.increment_factor
         self.pos_y += self.speed
 
     def move_right(self):
-        if self.speed < self.speed_limit:
-            self.speed += self.increment_factor
         self.pos_x += self.speed
     
     def move_left(self):
-        if self.speed < self.speed_limit:
-            self.speed += self.increment_factor
         self.pos_x -= self.speed
 
     def get_rect(self):
         return pygame.Rect(self.pos_x, self.pos_y, self.width * self.scale, self.height * self.scale)
 
 class Ghost(Enemy):
-    """need a way to keep the sprites separate"""
+    def __init__(self, config):
+        super().__init__(config)
+        self.r_number_min = config["r_number_min"]
+        self.r_number_max = config["r_number_max"]
+        self.braking_distance = config["braking_distance"]
+        self.speed_modified = False  # Track if speed has been modified
+
     def master_movement(self, hero):
+        # Calculate the distance between the ghost and the hero
+        distance = ((hero.pos_x - self.pos_x) ** 2 + (hero.pos_y - self.pos_y) ** 2) ** 0.5
+
+        
+
+        if distance < self.braking_distance:
+            self._restore_speed()
+        else:
+            self._modify_speed()
+
         if hero.pos_x > self.pos_x:
             self.move_right()
-        
-        if hero.pos_x < self.pos_x:
+        elif hero.pos_x < self.pos_x:
             self.move_left()
         
         if hero.pos_y > self.pos_y:
             self.move_down()
-        
-        if hero.pos_y < self.pos_y:
+        elif hero.pos_y < self.pos_y:
             self.move_up()
 
-class Crab(Enemy):
-    def master_movement(self, hero, map_instance):
-        initial_pos_x = self.pos_x
-        initial_pos_y = self.pos_y
+    def _modify_speed(self):
+        if not self.speed_modified:  # Only modify speed if it hasn't been modified yet
+            lottery_number = random.randint(self.r_number_min, self.r_number_max)
+            number_drawn = random.randint(self.r_number_min, self.r_number_max)
 
-        if hero.pos_x > self.pos_x:
-            self.move_right()
-        
-        if hero.pos_x < self.pos_x:
-            self.move_left()
-        
-        if hero.pos_y > self.pos_y:
-            self.move_down()
-        
-        if hero.pos_y < self.pos_y:
-            self.move_up()
-        
-        if map_instance.collided_with(self):
-            self.pos_x = initial_pos_x
-            self.pos_y = initial_pos_y
+            print(f'lottery_number {lottery_number}, number_drawn {number_drawn}')
 
-class Soldier(Enemy):
-    def master_movement(self, hero, map_instance):
-        initial_pos_x = self.pos_x
-        initial_pos_y = self.pos_y
+            if lottery_number == number_drawn:
+                self.speed = lottery_number
+                self.speed_modified = True
+                print("Speed modified!")
 
-        if hero.pos_x > self.pos_x:
-            self.move_right()
+    def _restore_speed(self):
+        self.speed = self.original_speed
+        self.speed_modified = False
         
-        if hero.pos_x < self.pos_x:
-            self.move_left()
         
-        if hero.pos_y > self.pos_y:
-            self.move_down()
-        
-        if hero.pos_y < self.pos_y:
-            self.move_up()
-        
-        if map_instance.collided_with(self):
-            self.pos_x = initial_pos_x
-            self.pos_y = initial_pos_y
+
+            
+
+
+

@@ -60,7 +60,7 @@ def main():
             pygame.quit()
             sys.exit()
         
-        print(ghost1.speed)
+       
 
     pygame.quit()
     sys.exit()
