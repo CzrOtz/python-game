@@ -1,6 +1,10 @@
 import pygame
 import random
 
+"""
+these classes dictate the behavior of the individual enemies in the game
+"""
+
 class Enemy:
     def __init__(self, config):
         self.pos_x = config["pos_x"]
@@ -53,6 +57,7 @@ class Ghost(Enemy):
 
         if distance < self.braking_distance:
             self._restore_speed()
+            
         else:
             self._modify_speed()
 
