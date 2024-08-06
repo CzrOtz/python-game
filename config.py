@@ -36,16 +36,7 @@ hero_config = {
     "weapon_speed": 10,
 }
 
-# ghost_config = {
-#     "pos_x": 500,
-#     "pos_y": 1500,
-#     "speed": 1,
-#     "scale": scale,
-#     "sprite_path": "characters/pngBank/tile_0108.png",
-#     "braking_distance": 150,
-#     "r_number_min": 0,
-#     "r_number_max": 6,
-# }
+
 
 ghost_spawn_config = {
     "initial_ghost_quantity": 1,
@@ -68,8 +59,10 @@ def generate_ghost_config():
 
 """
 insert this dictionary into the list for the ammount of times that range is set to
+
+this array is filled with the configuaration of the ghost
 """
-ghost_config = [generate_ghost_config() for _ in range(initial_ghost_quantity)]
+# ghost_config = [generate_ghost_config() for _ in range(initial_ghost_quantity)]
 
 
 

@@ -1,8 +1,14 @@
 import pygame
 import random
-from enemy import Ghost
+from characters.enemy import Ghost
 from config import generate_ghost_config
-from config import ghost_spawn_config
+
+
+"""this class depends on the Ghost class and the generate_ghost_config function from config.py"""
+
+"""ghosts is every instance of the ghost class that is within the []"""
+
+"""ghost_config """
 
 class GhostManager:
     def __init__(self, config):
@@ -15,22 +21,28 @@ class GhostManager:
         self.initial_ghost_quantity = config["initial_ghost_quantity"]
         self.generate_initial_ghosts()
 
+    """this method generatges the initial ghosts"""    
     def generate_initial_ghosts(self):
         for _ in range(self.initial_ghost_quantity):
-            self.ghosts.append(Ghost(generate_ghost_config(self.scale)))
+            self.ghosts.append(Ghost(generate_ghost_config()))
 
-    def update(self, hero, game_map):
+    """this method applies the master movement method to each ghost in the list"""
+    #the character that the player is controlling OR you want the ghost to follow
+    #and the map the ghost is in
+    def update_position(self, hero, game_map):
         for ghost in self.ghosts:
             ghost.master_movement(hero)
             ghost.display(self.screen, game_map)
-
+    
+    """this method adds a new ghost to the list"""
     def add_new_ghost(self):
-        new_ghost_config = generate_ghost_config(self.scale)
+        new_ghost_config = generate_ghost_config()
         self.ghosts.append(Ghost(new_ghost_config))
         print(f'Spawned a new ghost at position ({new_ghost_config["pos_x"]}, {new_ghost_config["pos_y"]})')
 
+    """this method applies the collision check to each ghost in the list"""
     def check_collisions(self, hero):
         for ghost in self.ghosts:
             if hero.get_rect().colliderect(ghost.get_rect()):
-                print(f'Ghost at ({ghost.rect.x}, {ghost.rect.y}) collided with you')
+                print(f'Ghost at ({ghost.pos_x}, {ghost.pos_y}) collided with you')
                 # Handle collision (e.g., increase score, end game, etc.)
