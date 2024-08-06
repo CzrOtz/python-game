@@ -19,10 +19,11 @@ class GhostManager:
         self.add_ghost_event = pygame.USEREVENT + 1
         pygame.time.set_timer(self.add_ghost_event, self.spawn_rate)  # Add a new ghost every `spawn_rate` milliseconds
         self.initial_ghost_quantity = config["initial_ghost_quantity"]
-        self.generate_initial_ghosts()
+        self._generate_initial_ghosts()
 
-    """this method generatges the initial ghosts"""    
-    def generate_initial_ghosts(self):
+    """this method generatges the initial ghosts"""
+    """this is a private method only used once in the constructor"""    
+    def _generate_initial_ghosts(self):
         for _ in range(self.initial_ghost_quantity):
             self.ghosts.append(Ghost(generate_ghost_config()))
 
@@ -35,14 +36,22 @@ class GhostManager:
             ghost.display(self.screen, game_map)
     
     """this method adds a new ghost to the list"""
+    #this method is in the game loop in the event loop
     def add_new_ghost(self):
         new_ghost_config = generate_ghost_config()
+
+        #this is where the dictionary is being paired with the ghost
         self.ghosts.append(Ghost(new_ghost_config))
+
         print(f'Spawned a new ghost at position ({new_ghost_config["pos_x"]}, {new_ghost_config["pos_y"]})')
 
     """this method applies the collision check to each ghost in the list"""
-    def check_collisions(self, hero):
+    def check_collisions(self, hero, weapon):
         for ghost in self.ghosts:
             if hero.get_rect().colliderect(ghost.get_rect()):
                 print(f'Ghost at ({ghost.pos_x}, {ghost.pos_y}) collided with you')
+                # Handle collision (e.g., increase score, end game, etc.)
+            
+            if weapon.get_rect().colliderect(ghost.get_rect()):
+                print(f'Ghost at ({ghost.pos_x}, {ghost.pos_y}) was hit by your weapon')
                 # Handle collision (e.g., increase score, end game, etc.)
