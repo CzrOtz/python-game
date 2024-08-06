@@ -52,7 +52,7 @@ class Map:
         start_y = max(0, self.offset_y // (self.tmx_data.tileheight * self.scale))
         end_x = min(self.tmx_data.width, (self.offset_x + screen_width) // (self.tmx_data.tilewidth * self.scale) + 1)
         end_y = min(self.tmx_data.height, (self.offset_y + screen_height) // (self.tmx_data.tileheight * self.scale) + 1)
-
+        
         for layer in self.tmx_data.visible_layers:
             if isinstance(layer, pytmx.TiledTileLayer):
                 for x in range(start_x, end_x):
@@ -86,6 +86,8 @@ class Map:
         else:
             # print("No collision detected: False")
             return False
+    
+    
 
 
 

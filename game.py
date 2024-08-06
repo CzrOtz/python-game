@@ -8,8 +8,8 @@ from new_map.map_behavior import Map
 # Initialize Pygame
 pygame.init()
 
-# Use the pre-initialized screen, caption, and clock from config
-screen = config.screen
+
+
 clock = config.clock
 
 # Initialize hero
@@ -41,12 +41,12 @@ def main():
         # Update and display each ghost
         for i in ghosts:
             i.master_movement(hero)
-            i.display(screen, game_map)
+            i.display(config.screen, game_map)
         
         
 
         # Display the hero
-        hero.display(screen, game_map.offset_x, game_map.offset_y)
+        hero.display(config.screen, game_map.offset_x, game_map.offset_y)
 
         pygame.display.flip()
         clock.tick(config.FPS)
