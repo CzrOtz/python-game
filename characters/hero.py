@@ -94,6 +94,12 @@ class Hero:
     def display_position(self):
         print(f"Hero position: {self.pos_x}, {self.pos_y}")
 
+def deploy_hero(char, map, screen, off_x, off_y):
+    char.master_movement(map)
+    char.display(screen, off_x, off_y)
+   
+
+
 
 
 

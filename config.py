@@ -5,7 +5,7 @@ import pygame
 SCREEN_WIDTH = 950
 SCREEN_HEIGHT = 900
 FPS = 60
-scale = 3
+scale = 4
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Endless Runner Prototype")
 clock = pygame.time.Clock()
@@ -40,7 +40,7 @@ hero_weapon_config = {
     "damage": 1,
     "range": 10,
     "speed": 10,
-    "scale": scale,
+    "scale": scale - 1.2,
     "sprite_path": "characters/pngBank/tile_0131.png",
     "pointer_sp": "characters/pngBank/tile_0101.png",
     "cooldown": 500,

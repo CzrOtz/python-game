@@ -2,8 +2,10 @@ import pygame
 import sys
 import config
 from characters.hero import Hero
+from characters.hero import deploy_hero
 from new_map.map_behavior import Map
 from characters.spawner import GhostManager
+from characters.spawner import deploy_ghosts
 from characters.weapon import Weapon
 
 # Initialize Pygame
@@ -39,20 +41,20 @@ def main():
         game_map.update_offset(hero.pos_x, hero.pos_y)
         game_map.draw()
         
-        hero.master_movement(game_map)
-        hero.display(config.screen, game_map.offset_x, game_map.offset_y)
+        # hero.master_movement(game_map)
+        # hero.display(config.screen, game_map.offset_x, game_map.offset_y)
+
+        deploy_hero(hero, game_map, config.screen, game_map.offset_x, game_map.offset_y)
+
 
         weapon.display(config.screen, game_map.offset_x, game_map.offset_y)
         weapon.update_position(hero)
         weapon.fire(hero)
 
-        ghost_manager.update_position(hero, game_map)
-        ghost_manager.check_collisions(hero, weapon)
 
-        # mouse_x, mouse_y = pygame.mouse.get_pos()
-        print(pygame.mouse.get_pos())
+        # deploy_ghosts(hero, game_map, weapon, ghost_manager)
 
-        # config.screen.fill((0, 0, 0))
+        
         pygame.display.flip()
         clock.tick(config.FPS)
 
