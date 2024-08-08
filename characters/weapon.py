@@ -27,24 +27,20 @@ class Weapon:
         self.pointer_image = pygame.transform.scale(self.pointer_image, (int(self.pointer_image.get_width() * self.scale), int(self.pointer_image.get_height() * self.scale)))
         self.pointer_x, self.pointer_y = pygame.mouse.get_pos()
 
+        # Initialize direction vector
+        self.dir_x = 0
+        self.dir_y = 0
+
     def _calculate_angle(self, x1, y1, x2, y2):
-        print(f"x1: {x1}, y1: {y1}, x2: {x2}, y2: {y2}")
-        print("pointer_x: ", self.pointer_x, "pointer_y: ", self.pointer_y)
         return math.atan2(y2 - y1, x2 - x1)
+
+    def _calculate_direction(self, x1, y1, x2, y2):
+        angle = self._calculate_angle(x1, y1, x2, y2)
+        return math.cos(angle), math.sin(angle)
     
     def display(self, screen, offset_x, offset_y):
-        # Update pointer position
-        self.pointer_x, self.pointer_y = pygame.mouse.get_pos()
-        
-        # Calculate angle between hero and cursor
-        angle = self._calculate_angle(self.pos_x - offset_x, self.pos_y - offset_y, self.pointer_x, self.pointer_y)
-
-        # Adjust angle to correct for the 90 degrees offset
-        angle -= math.pi / 2  # Subtract 90 degrees (pi/2 radians)
-        angle += math.pi
-
         # Rotate weapon sprite
-        rotated_sprite = pygame.transform.rotate(self.sprite, -math.degrees(angle))
+        rotated_sprite = pygame.transform.rotate(self.sprite, -math.degrees(self._calculate_angle(self.pos_x - offset_x, self.pos_y - offset_y, self.pointer_x, self.pointer_y)) - 90)
 
         # Calculate new rect position to keep the sprite centered
         new_rect = rotated_sprite.get_rect(center=(self.pos_x - offset_x, self.pos_y - offset_y))
@@ -56,6 +52,7 @@ class Weapon:
     def update_position(self, hero):
         """This method keeps the weapon attached to the hero"""
         if not self.attack:
+            # Position of weapon
             self.pos_x = hero.pos_x
             self.pos_y = hero.pos_y
 
@@ -66,14 +63,18 @@ class Weapon:
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 self.attack = True
+                self.dir_x, self.dir_y = self._calculate_direction(self.pos_x, self.pos_y, self.pointer_x, self.pointer_y)
                 print("Attack launched")
-    
+
     def fire(self, hero):
         if self.attack:
-            self.pos_y -= self.attack_speed
+            # Move the weapon in the direction of the pointer
+            self.pos_x += self.dir_x * self.attack_speed
+            self.pos_y += self.dir_y * self.attack_speed
         
-        if self.pos_y < 0:
+        if self.pos_y < 0 or self.pos_x < 0 or self.pos_y > hero.config["screen_height"] or self.pos_x > hero.config["screen_width"]:
             self.attack = False
+            self.pos_x = hero.pos_x
             self.pos_y = hero.pos_y
             print("Attack ended")
 
