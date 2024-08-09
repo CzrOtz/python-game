@@ -55,13 +55,13 @@ class Weapon:
 
         # Rotate weapon sprite
         rotated_sprite = pygame.transform.rotate(self.sprite, -math.degrees(self.angle) - 90)
-
-        # Calculate new rect position to keep the sprite centered
         new_rect = rotated_sprite.get_rect(center=(self.pos_x - off_x, self.pos_y - off_y))
-
-        # Blit the rotated weapon sprite
         screen.blit(rotated_sprite, new_rect.topleft)
-        screen.blit(self.pointer_image, (self.pointer_x, self.pointer_y))
+
+        #center the pointer image with the tip of the cursor
+        pointer_center_x = self.pointer_x - self.pointer_image.get_width() // 2
+        pointer_center_y = self.pointer_y - self.pointer_image.get_height() // 2
+        screen.blit(self.pointer_image, (pointer_center_x, pointer_center_y))
 
     def update_position(self, hero):
         """This method keeps the weapon attached to the hero"""
