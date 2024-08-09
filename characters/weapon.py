@@ -4,8 +4,6 @@ import math
 """
 these bugs are still present
 
-weapon changes direction when clicked once its flying
-
 weapons directory is horribly off when scale is increased
 
 cursor is not centered with dot
@@ -75,10 +73,12 @@ class Weapon:
 
     def launch_attack(self, event):
         """This method is responsible for triggering the attack when a click is detected"""
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+        #the second condition fixed the click mid flight change in directory
+        if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1) and self.attack == False:
             self.attack = True
             self.dir_x, self.dir_y = self._calculate_direction(self.pos_x, self.pos_y, self.pointer_x, self.pointer_y)
 
+    """this only triggers during an EVENT, if you dont want it to trigger, address the event"""
     def fire(self, hero):
         if self.attack:
             # Move the weapon in the direction of the pointer
@@ -100,22 +100,22 @@ class Weapon:
         print(" ")
         print(" ------ weapon specs ------  ")
         
-        print(f"Damage: {self.damage}")
-        print(f"Range: {self.range}")
-        print(f"Attack Speed: {self.attack_speed}")
-        print(f"Attack Cooldown: {self.attack_cooldown}")
+        # print(f"Damage: {self.damage}")
+        # print(f"Range: {self.range}")
+        # print(f"Attack Speed: {self.attack_speed}")
+        # print(f"Attack Cooldown: {self.attack_cooldown}")
         print(f"Scale: {self.scale}")
-        print(f"Weapon Sprite Dimensions (width x height): ({self.width} x {self.height})")
+        # print(f"Weapon Sprite Dimensions (width x height): ({self.width} x {self.height})")
         print("-------------------------")
         print(" ")
         print(" ")
     
         print("----- Weapon State --------")
         print(f"Attack Status: {self.attack}")
-        print(f"Collision Status (colided): {self.colided}")
-        print(f"Out of Range Status: {self.out_of_range}")
-        print(f"Out of Map Status: {self.out_of_map}")
-        print(f"Attack in Progress: {self.attack_in_progress}")
+        # print(f"Collision Status (colided): {self.colided}")
+        # print(f"Out of Range Status: {self.out_of_range}")
+        # print(f"Out of Map Status: {self.out_of_map}")
+        # print(f"Attack in Progress: {self.attack_in_progress}")
         print(" ----------------------")
         print(" ")
         print(" ")
