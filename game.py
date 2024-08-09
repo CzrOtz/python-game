@@ -37,12 +37,14 @@ def main():
             else:
                 hero.movement_flags(event)
                 weapon.launch_attack(event)
+                
+                
+                
 
         game_map.update_offset(hero.pos_x, hero.pos_y)
         game_map.draw()
         
-        # hero.master_movement(game_map)
-        # hero.display(config.screen, game_map.offset_x, game_map.offset_y)
+        
 
         deploy_hero(hero, game_map, config.screen, game_map.offset_x, game_map.offset_y)
 
@@ -51,8 +53,11 @@ def main():
         weapon.update_position(hero)
         weapon.fire(hero)
 
+        weapon.inspect()
+        
 
-        # deploy_ghosts(hero, game_map, weapon, ghost_manager)
+
+        deploy_ghosts(hero, game_map, weapon, ghost_manager)
 
         
         pygame.display.flip()

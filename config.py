@@ -3,7 +3,7 @@ import pygame
 
 # Screen settings
 SCREEN_WIDTH = 950
-SCREEN_HEIGHT = 900
+SCREEN_HEIGHT = 950
 FPS = 60
 scale = 3
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -33,13 +33,13 @@ hero_config = {
     "screen_width": SCREEN_WIDTH,
     "screen_height": SCREEN_HEIGHT,
     "weapon": "characters/pngBank/tile_0103.png",
-    "weapon_speed": 10,
+    "weapon_speed": 10
 }
 
 hero_weapon_config = {
     "damage": 1,
     "range": 10,
-    "speed": 7,
+    "speed": 10,
     "scale": scale - 1.2,
     "sprite_path": "characters/pngBank/tile_0131.png",
     "pointer_sp": "characters/pngBank/tile_0101.png",
@@ -60,7 +60,7 @@ def generate_ghost_config():
     return {
         "pos_x": 500,
         "pos_y": 1500,
-        "speed": 1,
+        "speed": 1.5,
         "scale": scale,
         "sprite_path": "characters/pngBank/tile_0108.png",
         "braking_distance": 150,
