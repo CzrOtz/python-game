@@ -6,13 +6,13 @@ these bugs are still present
 
 weapons directory is horribly off when scale is increased
 
-cursor is not centered with dot
+
 """
 
 class Weapon:
     def __init__(self, config, hero):
-        self.pos_x = hero.pos_x
-        self.pos_y = hero.pos_y
+        self.pos_x = hero.pos_x + hero.width
+        self.pos_y = hero.pos_y + hero.height + 20
         self.damage = config["damage"]
         self.range = config["range"]
         self.attack_speed = config["speed"]
@@ -26,13 +26,13 @@ class Weapon:
         self.attack_in_progress = False
         self.angle = 0  # Initialize angle
 
-        # Load and scale the weapon sprite
+        # Load and sca le the weapon sprite
         self.sprite = pygame.image.load(config["sprite_path"]).convert_alpha()
         self.sprite = pygame.transform.scale(self.sprite, (int(self.sprite.get_width() * self.scale), int(self.sprite.get_height() * self.scale)))
         self.width = self.sprite.get_width()
         self.height = self.sprite.get_height()
 
-        # Load and scale the pointer image
+        # Load and sca le the pointer image
         self.pointer_image = pygame.image.load(config["pointer_sp"]).convert_alpha()
         self.pointer_image = pygame.transform.scale(self.pointer_image, (int(self.pointer_image.get_width() * self.scale), int(self.pointer_image.get_height() * self.scale)))
         self.pointer_x, self.pointer_y = pygame.mouse.get_pos()
@@ -49,9 +49,11 @@ class Weapon:
         return math.cos(angle), math.sin(angle)
 
     def display(self, screen, off_x, off_y):
+        
         # Use the stored angle if the attack is in progres
         if not self.attack:
             self.angle = self._calculate_angle(self.pos_x - off_x, self.pos_y - off_y, self.pointer_x, self.pointer_y)
+        
 
         # Rotate weapon sprite
         rotated_sprite = pygame.transform.rotate(self.sprite, -math.degrees(self.angle) - 90)
@@ -66,8 +68,8 @@ class Weapon:
     def update_position(self, hero):
         """This method keeps the weapon attached to the hero"""
         if not self.attack:
-            self.pos_x = hero.pos_x 
-            self.pos_y = hero.pos_y 
+            self.pos_x = hero.pos_x + hero.width 
+            self.pos_y = hero.pos_y + hero.height + 20
 
         self.pointer_x, self.pointer_y = pygame.mouse.get_pos()
 
@@ -75,6 +77,7 @@ class Weapon:
         """This method is responsible for triggering the attack when a click is detected"""
         #the second condition fixed the click mid flight change in directory
         if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1) and self.attack == False:
+            print("IM WORKING")
             self.attack = True
             self.dir_x, self.dir_y = self._calculate_direction(self.pos_x, self.pos_y, self.pointer_x, self.pointer_y)
 

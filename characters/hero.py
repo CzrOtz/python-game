@@ -93,6 +93,31 @@ class Hero:
 
     def display_position(self):
         print(f"Hero position: {self.pos_x}, {self.pos_y}")
+    
+    def inspect(self):
+        print("----- HERO INSPECTION -----")
+        print(" ")
+        print(" ")
+        print(" ------ Hero specs ------  ")
+        print(f"Speed: {self.speed}")
+        print(f"Scale: {self.scale}")
+        print(f"Hero Sprite Dimensions (width x height): ({self.width} x {self.height})")
+        print("-------------------------")
+        print(" ")
+        print(" ")
+        print(" ------ Hero Position ------  ")
+        print(f"Hero Position (pos_x, pos_y): ({self.pos_x}, {self.pos_y})")
+        print(f'Hero scale (scale): {self.scale}')
+        print("-------------------------")
+    
+        print("----- Hero State --------")
+        print(f"Moving Left: {self.moving_left}")
+        print(f"Moving Right: {self.moving_right}")
+        print(f"Moving Up: {self.moving_up}")
+        print(f"Moving Down: {self.moving_down}")
+        print(" ----------------------")
+        print(" ")
+        print(" ")
 
 def deploy_hero(char, map, screen, off_x, off_y):
     char.master_movement(map)

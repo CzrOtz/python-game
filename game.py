@@ -54,10 +54,11 @@ def main():
         weapon.fire(hero)
 
         weapon.inspect()
+        hero.inspect()
         
 
 
-        deploy_ghosts(hero, game_map, weapon, ghost_manager)
+        # deploy_ghosts(hero, game_map, weapon, ghost_manager)
 
         
         pygame.display.flip()

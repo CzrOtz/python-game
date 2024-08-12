@@ -40,7 +40,7 @@ hero_weapon_config = {
     "damage": 1,
     "range": 10,
     "speed": 10,
-    "scale": scale - 1.2,
+    "scale": scale,
     "sprite_path": "characters/pngBank/tile_0131.png",
     "pointer_sp": "characters/pngBank/tile_0101.png",
     "cooldown": 500,
@@ -53,7 +53,7 @@ ghost_spawn_config = {
     "initial_ghost_quantity": 1,
     "spawn_rate": 5000,
     "screen": screen,
-    "scale": scale,  
+    "scale": scale, 
 }
 
 def generate_ghost_config():

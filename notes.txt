@@ -1,2 +1,5 @@
 
 
+pointer position x / direction vector x 
+pointer position y / direction vector y
+
