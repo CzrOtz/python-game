@@ -49,6 +49,9 @@ def main():
         weapon.update_position(hero)
         weapon.fire(hero, game_map.map_width, game_map.map_height, game_map)
 
+        game_map.draw_mask(config.screen)
+        weapon.draw_mask(config.screen, game_map.offset_x, game_map.offset_y)
+        
       
 
         

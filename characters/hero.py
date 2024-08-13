@@ -11,11 +11,15 @@ class Hero:
         self.moving_down = False
         self.scale = config["scale"]
         self.config = config
+
         # Load the sprite directly from the PNG file
         self.sprite = pygame.image.load(config["sprite_path"]).convert_alpha()
         self.width = self.sprite.get_width()
         self.height = self.sprite.get_height()
         self.sprite = pygame.transform.scale(self.sprite, (self.width * self.scale, self.height * self.scale))
+
+        # Create a mask for pixel-perfect collision detection
+        self.mask = pygame.mask.from_surface(self.sprite)
 
     def display(self, screen, offset_x, offset_y):
         screen.blit(self.sprite, (self.pos_x - offset_x, self.pos_y - offset_y))
@@ -46,7 +50,6 @@ class Hero:
     
 
     def master_movement(self, map_instance):
-    
         initial_pos_x = self.pos_x
         initial_pos_y = self.pos_y
 
@@ -59,14 +62,10 @@ class Hero:
         if self.moving_down:
             self.move_down()
 
-        #add or is past the border of the screen 
+        # Add or is past the border of the screen 
         if map_instance.collided_with(self):
-            
             self.pos_x = initial_pos_x
             self.pos_y = initial_pos_y
-    
-
-
 
     def movement_flags(self, event):
         if event.type == pygame.KEYDOWN:
@@ -90,6 +89,26 @@ class Hero:
 
     def get_rect(self):
         return pygame.Rect(self.pos_x, self.pos_y, self.width, self.height)
+
+    def get_mask(self):
+        """
+        Return the mask of the hero for pixel-perfect collision detection.
+        """
+        return self.mask
+
+    def get_mask_offset(self):
+        """
+        Return the position offset of the mask to use in collision detection.
+        """
+        return (int(self.pos_x), int(self.pos_y))
+
+    def draw_mask(self, screen, offset_x, offset_y):
+        """
+        Draw the mask on the screen for debugging purposes.
+        This fills the mask with a semi-transparent red color.
+        """
+        mask_surface = self.mask.to_surface(setcolor=(255, 0, 0, 128), unsetcolor=(0, 0, 0, 0))
+        screen.blit(mask_surface, (self.pos_x - offset_x, self.pos_y - offset_y))
 
     def display_position(self):
         print(f"Hero position: {self.pos_x}, {self.pos_y}")
@@ -123,6 +142,9 @@ class Hero:
 def deploy_hero(char, map, screen, off_x, off_y):
     char.master_movement(map)
     char.display(screen, off_x, off_y)
+    char.draw_mask(screen, off_x, off_y)  # Optional: Draw the mask for debugging
+
+
    
 
 

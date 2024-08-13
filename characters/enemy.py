@@ -21,14 +21,20 @@ class Enemy:
         self.sprite = pygame.image.load(config["sprite_path"]).convert_alpha()
         self.width = self.sprite.get_width()
         self.height = self.sprite.get_height()
-        self.sprite = pygame.transform.scale(self.sprite, (self.width * self.scale, self.height * self.scale))
+
+        # Scale the sprite before creating the mask
+        self.sprite = pygame.transform.scale(self.sprite, (int(self.width * self.scale), int(self.height * self.scale)))
+
+        # Update width and height after scaling
+        self.width = self.sprite.get_width()
+        self.height = self.sprite.get_height()
 
         # Create a mask for pixel-perfect collision detection
         self.mask = pygame.mask.from_surface(self.sprite)
 
     def display(self, screen, map):
         screen.blit(self.sprite, (self.pos_x - map.offset_x, self.pos_y - map.offset_y))
-    
+
     def move_up(self):
         self.pos_y -= self.speed
     
@@ -52,6 +58,23 @@ class Enemy:
         Return the position offset of the mask to use in collision detection.
         """
         return (int(self.pos_x), int(self.pos_y))
+
+    def draw_mask(self, screen, map):
+        """
+        Draw the ghost's mask as a semi-transparent red overlay on the screen.
+        The `map` parameter is used to adjust for the map offset.
+        """
+        # Create a semi-transparent red surface with the same size as the ghost's sprite
+        mask_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
+        mask_surface.fill((255, 0, 0, 100))  # Red color with alpha = 100 for transparency
+    
+        # Calculate the position to draw the mask, considering the map offset
+        pos_x = self.pos_x - map.offset_x
+        pos_y = self.pos_y - map.offset_y
+    
+        # Blit the red surface onto the screen at the correct position
+        screen.blit(mask_surface, (pos_x, pos_y))
+        print("everything is triggering for each ghost")
 
 class Ghost(Enemy):
     def __init__(self, config):
@@ -93,6 +116,8 @@ class Ghost(Enemy):
     def _restore_speed(self):
         self.speed = self.original_speed
         self.speed_modified = False
+    
+    
 
     
     

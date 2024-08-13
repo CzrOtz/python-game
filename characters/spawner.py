@@ -24,6 +24,7 @@ class GhostManager:
         for ghost in self.ghosts:
             ghost.master_movement(hero)
             ghost.display(self.screen, game_map)
+            
 
     """this method adds a new ghost to the list"""
     def add_new_ghost(self):
@@ -34,8 +35,8 @@ class GhostManager:
     """if the weapon is not moving, then dont reduce health"""
     """if the ghost made contact with the weapon, then stop redicing health"""
     def check_collisions(self, hero, weapon):
-        hero_mask = pygame.mask.from_surface(hero.sprite)
-        hero_mask_offset = (int(hero.pos_x - hero.width // 2), int(hero.pos_y - hero.height // 2))
+        hero_mask = hero.get_mask()
+        hero_mask_offset = hero.get_mask_offset()
 
         weapon_mask = weapon.get_mask()
         weapon_mask_offset = weapon.get_mask_offset()
@@ -80,10 +81,18 @@ class GhostManager:
             print(f"  - Original Speed: {ghost.original_speed}")
             print("----------------------")
         print("----- END OF INSPECTION -----\n")
+    
+    def draw_all_masks(self, game_map):
+        """
+        Draws the collision mask of each ghost as a semi-transparent red overlay for debugging.
+        """
+        print("every ghost has a mask")
+        for ghost in self.ghosts:
+            ghost.draw_mask(self.screen, game_map)
+            
 
 def deploy_ghosts(char, map, wpn, ghost_manager):
     ghost_manager.update_position(char, map)
     ghost_manager.check_collisions(char, wpn)
-    ghost_manager.inspect()
-
+    ghost_manager.draw_all_masks(map)
     

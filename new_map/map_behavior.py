@@ -73,8 +73,8 @@ class Map:
         hero_rect = hero.get_rect()
 
         # Create a mask for the hero sprite
-        hero_mask = pygame.mask.from_surface(hero.sprite)
-        offset = (hero_rect.x, hero_rect.y)
+        hero_mask = hero.get_mask()
+        offset = hero.get_mask_offset()
 
         # Check for overlap between the hero mask and the collision mask
         overlap = self.collision_mask.overlap(hero_mask, offset)
@@ -86,7 +86,24 @@ class Map:
         else:
             # print("No collision detected: False")
             return False
+        
     
+    def draw_mask(self, screen):
+        """
+         Draw the collision mask as a semi-transparent red overlay on the screen.
+        """
+        # Create a red surface with the same size as the collision surface and apply the mask
+        red_surface = pygame.Surface((self.map_width, self.map_height), pygame.SRCALPHA)
+        red_surface.fill((255, 0, 0, 100))  # Red color with transparency (alpha = 100)
+    
+        # Blit the collision surface onto the red surface using the mask
+        red_surface.blit(self.collision_surface, (0, 0), special_flags=pygame.BLEND_RGBA_MULT)
+    
+        # Blit the red surface onto the screen with the map offsets
+        screen.blit(red_surface, (-self.offset_x, -self.offset_y))
+
+
+
     
 
 

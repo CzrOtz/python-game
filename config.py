@@ -5,7 +5,7 @@ import pygame
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 900
 FPS = 60
-scale = 2
+scale = 3
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Endless Runner Prototype")
 clock = pygame.time.Clock()
@@ -52,6 +52,29 @@ hero_weapon_config = {
     "position_x": hero_config["pos_x"],
     "position_y": hero_config["pos_y"]
 }
+
+
+
+
+ghost_spawn_config = {
+    "initial_ghost_quantity": 1,
+    "spawn_rate": 5000,
+    "screen": screen,
+    "scale": scale, 
+}
+
+# def generate_ghost_config():
+#     return {
+#         "pos_x": 500,
+#         "pos_y": 1500,
+#         "speed": 1.5,
+#         "scale": scale,
+#         "sprite_path": "characters/pngBank/tile_0109.png",
+#         "braking_distance": 150,
+#         "r_number_min": 0,
+#         "r_number_max": 6,
+#         "health": 100
+#     }
 
 
 
