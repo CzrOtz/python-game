@@ -2,7 +2,7 @@ import pygame
 import random
 
 """
-these classes dictate the behavior of the individual enemies in the game
+These classes dictate the behavior of the individual enemies in the game
 """
 
 class Enemy:
@@ -23,6 +23,9 @@ class Enemy:
         self.height = self.sprite.get_height()
         self.sprite = pygame.transform.scale(self.sprite, (self.width * self.scale, self.height * self.scale))
 
+        # Create a mask for pixel-perfect collision detection
+        self.mask = pygame.mask.from_surface(self.sprite)
+
     def display(self, screen, map):
         screen.blit(self.sprite, (self.pos_x - map.offset_x, self.pos_y - map.offset_y))
     
@@ -38,8 +41,17 @@ class Enemy:
     def move_left(self):
         self.pos_x -= self.speed
 
-    def get_rect(self):
-        return pygame.Rect(self.pos_x, self.pos_y, self.width * self.scale, self.height * self.scale)
+    def get_mask(self):
+        """
+        Return the mask of the enemy for pixel-perfect collision detection.
+        """
+        return self.mask
+
+    def get_mask_offset(self):
+        """
+        Return the position offset of the mask to use in collision detection.
+        """
+        return (int(self.pos_x), int(self.pos_y))
 
 class Ghost(Enemy):
     def __init__(self, config):
@@ -54,11 +66,8 @@ class Ghost(Enemy):
         # Calculate the distance between the ghost and the hero
         distance = ((hero.pos_x - self.pos_x) ** 2 + (hero.pos_y - self.pos_y) ** 2) ** 0.5
 
-        
-
         if distance < self.braking_distance:
             self._restore_speed()
-            
         else:
             self._modify_speed()
 
@@ -80,11 +89,11 @@ class Ghost(Enemy):
             if lottery_number == number_drawn:
                 self.speed = lottery_number
                 self.speed_modified = True
-                
 
     def _restore_speed(self):
         self.speed = self.original_speed
         self.speed_modified = False
+
     
     
     

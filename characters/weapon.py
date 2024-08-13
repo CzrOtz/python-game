@@ -1,7 +1,7 @@
 import pygame
 import math
 
-"""this is for a long range weapon that the hero can use"""
+"""This class handles a long-range weapon that the hero can use"""
 
 class Weapon:
     def __init__(self, config, hero):
@@ -12,7 +12,6 @@ class Weapon:
         # Weapon attributes from config
         self.attack_speed = config["speed"]
         self.scale = config["scale"]
-
         self.damage = config["damage"]
 
         # Weapon state flags
@@ -24,6 +23,9 @@ class Weapon:
         self.sprite = pygame.transform.scale(self.sprite, (int(self.sprite.get_width() * self.scale), int(self.sprite.get_height() * self.scale)))
         self.width = self.sprite.get_width()
         self.height = self.sprite.get_height()
+
+        # Create a mask for pixel-perfect collision
+        self.mask = pygame.mask.from_surface(self.sprite)
 
         # Load and scale the pointer image
         self.pointer_image = pygame.image.load(config["pointer_sp"]).convert_alpha()
@@ -88,7 +90,7 @@ class Weapon:
             pointer_y_corrected = self.pointer_y + off_y
             self.dir_x, self.dir_y = self._calculate_direction(self.pos_x, self.pos_y, pointer_x_corrected, pointer_y_corrected)
 
-    def fire(self, hero, map_width, map_height):
+    def fire(self, hero, map_width, map_height, map):
         """
         Move the weapon in the direction of the pointer if an attack is in progress.
         The weapon resets to the hero's position if it goes out of the map's bounds.
@@ -104,8 +106,29 @@ class Weapon:
             self.attack = False
             self.pos_x = hero.pos_x
             self.pos_y = hero.pos_y
+        
+        if map.collided_with(self):
+            self.attack = False
+            self.pos_x = hero.pos_x
+            self.pos_y = hero.pos_y
+            print("collision detected with map")
 
+    def get_mask(self):
+        """
+        Return the mask of the weapon for pixel-perfect collision detection.
+        """
+        return self.mask
+
+    def get_mask_offset(self):
+        """
+        Return the position offset of the mask to use in collision detection.
+        """
+        return (int(self.pos_x), int(self.pos_y))
+    
     def get_rect(self):
+        """
+        Return the weapon's rectangle for collision detection.
+        """
         return pygame.Rect(self.pos_x, self.pos_y, self.width, self.height)
 
     def inspect(self):

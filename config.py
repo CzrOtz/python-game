@@ -3,9 +3,9 @@ import pygame
 
 # Screen settings
 SCREEN_WIDTH = 1200
-SCREEN_HEIGHT = 1000
+SCREEN_HEIGHT = 900
 FPS = 60
-scale = 5
+scale = 2
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Endless Runner Prototype")
 clock = pygame.time.Clock()
@@ -42,7 +42,7 @@ hero_config = {
 }
 
 hero_weapon_config = {
-    "damage": 34,
+    "damage": 10,
     "range": 10,
     "speed": 20,
     "scale": scale,
@@ -58,7 +58,7 @@ hero_weapon_config = {
 
 ghost_spawn_config = {
     "initial_ghost_quantity": 1,
-    "spawn_rate": 1000,
+    "spawn_rate": 5000,
     "screen": screen,
     "scale": scale, 
 }
