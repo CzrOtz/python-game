@@ -42,7 +42,7 @@ hero_config = {
 }
 
 hero_weapon_config = {
-    "damage": 1,
+    "damage": 34,
     "range": 10,
     "speed": 20,
     "scale": scale,
@@ -58,7 +58,7 @@ hero_weapon_config = {
 
 ghost_spawn_config = {
     "initial_ghost_quantity": 1,
-    "spawn_rate": 5000,
+    "spawn_rate": 1000,
     "screen": screen,
     "scale": scale, 
 }

@@ -56,8 +56,17 @@ class GhostManager:
             if weapon.get_rect().colliderect(ghost.get_rect()):
                 # print(f'Ghost at ({ghost.pos_x}, {ghost.pos_y}) was hit by your weapon')
                 print(" ouch that hurt ")
+                self._reduce_health(ghost, weapon)
              
                 # Handle collision (e.g., increase score, end game, etc.)
+    
+    def _reduce_health(self, ghost, weapon):
+        ghost.health -= weapon.damage
+        print(f'Ghost at ({ghost.pos_x}, {ghost.pos_y}) health: {ghost.health}, ghost: {ghost}')
+        if ghost.health <= 0:
+            self.ghosts.remove(ghost)
+            print("ghost removed")
+            # Handle ghost death (e.g., increase score, etc.)
 
 def deploy_ghosts(char, map, wpn, ghost):
     ghost.update_position(char, map)

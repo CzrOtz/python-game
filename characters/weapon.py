@@ -1,6 +1,8 @@
 import pygame
 import math
 
+"""this is for a long range weapon that the hero can use"""
+
 class Weapon:
     def __init__(self, config, hero):
         # Initialize the weapon's position relative to the hero's initial position
@@ -10,6 +12,8 @@ class Weapon:
         # Weapon attributes from config
         self.attack_speed = config["speed"]
         self.scale = config["scale"]
+
+        self.damage = config["damage"]
 
         # Weapon state flags
         self.attack = False

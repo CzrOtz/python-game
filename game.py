@@ -43,21 +43,20 @@ def main():
         game_map.draw()
         
         deploy_hero(hero, game_map, config.screen, game_map.offset_x, game_map.offset_y)
+        deploy_ghosts(hero, game_map, weapon, ghost_manager)
         
         weapon.display(config.screen, game_map.offset_x, game_map.offset_y)
         weapon.update_position(hero)
         weapon.fire(hero, game_map.map_width, game_map.map_height)
 
-        # weapon.inspect()
-        # hero.inspect()
-        # analyze_weapon_movement(weapon, hero)
+      
 
-        deploy_ghosts(hero, game_map, weapon, ghost_manager)
+        
 
         if game_map.collided_with(weapon):
             print("colided with weapon")
         
-        ghost_manager.check_collisions(hero, weapon)
+        # ghost_manager.check_collisions(hero, weapon)
 
       
         
