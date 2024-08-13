@@ -2,7 +2,7 @@
 import pygame
 
 # Screen settings
-SCREEN_WIDTH = 1200
+SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 900
 FPS = 60
 scale = 3

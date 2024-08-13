@@ -142,7 +142,7 @@ class Hero:
 def deploy_hero(char, map, screen, off_x, off_y):
     char.master_movement(map)
     char.display(screen, off_x, off_y)
-    char.draw_mask(screen, off_x, off_y)  # Optional: Draw the mask for debugging
+    # char.draw_mask(screen, off_x, off_y)  # Optional: Draw the mask for debugging
 
 
    

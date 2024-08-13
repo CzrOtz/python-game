@@ -33,3 +33,11 @@ def analyze_weapon_movement(weapon, hero):
     print(f"Hero Position: ({hero.pos_x}, {hero.pos_y})")
     print(f"Pointer Position: ({weapon.pointer_x}, {weapon.pointer_y})")
     print("-------------------------------\n")
+
+
+def view_masks(map, hero, weapon, ghost, screen):
+    map.draw_mask(screen)
+    weapon.draw_mask(screen, map.offset_x, map.offset_y)
+    hero.draw_mask(screen, map.offset_x, map.offset_y)
+    ghost.draw_all_masks(map)
+

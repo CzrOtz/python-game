@@ -8,6 +8,9 @@ from characters.spawner import GhostManager
 from characters.spawner import deploy_ghosts
 from characters.weapon import Weapon
 from additional_inspect import analyze_weapon_movement
+from additional_inspect import view_masks
+
+
 
 
 # Initialize Pygame
@@ -43,23 +46,19 @@ def main():
         game_map.draw()
         
         deploy_hero(hero, game_map, config.screen, game_map.offset_x, game_map.offset_y)
-        deploy_ghosts(hero, game_map, weapon, ghost_manager)
+        # deploy_ghosts(hero, game_map, weapon, ghost_manager)
         
         weapon.display(config.screen, game_map.offset_x, game_map.offset_y)
         weapon.update_position(hero)
         weapon.fire(hero, game_map.map_width, game_map.map_height, game_map)
 
-        game_map.draw_mask(config.screen)
-        weapon.draw_mask(config.screen, game_map.offset_x, game_map.offset_y)
-        
-      
+        # game_map.draw_mask(config.screen)
+        # weapon.draw_mask(config.screen, game_map.offset_x, game_map.offset_y)
 
-        
+        view_masks(game_map, hero, weapon, ghost_manager, config.screen)
 
-        if game_map.collided_with(weapon):
-            print("colided with weapon")
+        # weapon.inspect()
         
-        # ghost_manager.check_collisions(hero, weapon)
 
       
         

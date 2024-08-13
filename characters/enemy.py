@@ -74,7 +74,7 @@ class Enemy:
     
         # Blit the red surface onto the screen at the correct position
         screen.blit(mask_surface, (pos_x, pos_y))
-        print("everything is triggering for each ghost")
+        # print("everything is triggering for each ghost")
 
 class Ghost(Enemy):
     def __init__(self, config):

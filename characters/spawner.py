@@ -86,7 +86,7 @@ class GhostManager:
         """
         Draws the collision mask of each ghost as a semi-transparent red overlay for debugging.
         """
-        print("every ghost has a mask")
+        # print("every ghost has a mask")
         for ghost in self.ghosts:
             ghost.draw_mask(self.screen, game_map)
             
@@ -94,5 +94,5 @@ class GhostManager:
 def deploy_ghosts(char, map, wpn, ghost_manager):
     ghost_manager.update_position(char, map)
     ghost_manager.check_collisions(char, wpn)
-    ghost_manager.draw_all_masks(map)
+    # ghost_manager.draw_all_masks(map)
     
