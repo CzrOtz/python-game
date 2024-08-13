@@ -1,40 +1,31 @@
 import pygame
 import math
 
-"""
-these bugs are still present
-
-weapons directory is horribly off when scale is increased
-
-
-"""
-
 class Weapon:
     def __init__(self, config, hero):
-        self.pos_x = hero.pos_x + hero.width
-        self.pos_y = hero.pos_y + hero.height + 20
-        self.damage = config["damage"]
-        self.range = config["range"]
+        # Initialize the weapon's position relative to the hero's initial position
+        self.pos_x = hero.pos_x
+        self.pos_y = hero.pos_y
+
+        # Weapon attributes from config
         self.attack_speed = config["speed"]
-        self.attack_cooldown = config["cooldown"]
         self.scale = config["scale"]
-        
+
+        # Weapon state flags
         self.attack = False
-        self.colided = False
-        self.out_of_range = False
-        self.out_of_map = False
-        self.attack_in_progress = False
         self.angle = 0  # Initialize angle
 
-        # Load and sca le the weapon sprite
+        # Load and scale the weapon sprite
         self.sprite = pygame.image.load(config["sprite_path"]).convert_alpha()
         self.sprite = pygame.transform.scale(self.sprite, (int(self.sprite.get_width() * self.scale), int(self.sprite.get_height() * self.scale)))
         self.width = self.sprite.get_width()
         self.height = self.sprite.get_height()
 
-        # Load and sca le the pointer image
+        # Load and scale the pointer image
         self.pointer_image = pygame.image.load(config["pointer_sp"]).convert_alpha()
         self.pointer_image = pygame.transform.scale(self.pointer_image, (int(self.pointer_image.get_width() * self.scale), int(self.pointer_image.get_height() * self.scale)))
+
+        # Initialize pointer position
         self.pointer_x, self.pointer_y = pygame.mouse.get_pos()
 
         # Initialize direction vector
@@ -49,97 +40,89 @@ class Weapon:
         return math.cos(angle), math.sin(angle)
 
     def display(self, screen, off_x, off_y):
-        
-        # Use the stored angle if the attack is in progres
+        """
+        Display the weapon on the screen.
+        The `off_x` and `off_y` parameters represent the map offsets (game_map.offset_x and game_map.offset_y).
+        """
+        # Use the stored angle if the attack is in progress
         if not self.attack:
-            self.angle = self._calculate_angle(self.pos_x - off_x, self.pos_y - off_y, self.pointer_x, self.pointer_y)
+            # Correct the pointer position by the offset
+            pointer_x_corrected = self.pointer_x + off_x
+            pointer_y_corrected = self.pointer_y + off_y
+            self.angle = self._calculate_angle(self.pos_x, self.pos_y, pointer_x_corrected, pointer_y_corrected)
         
-
         # Rotate weapon sprite
         rotated_sprite = pygame.transform.rotate(self.sprite, -math.degrees(self.angle) - 90)
         new_rect = rotated_sprite.get_rect(center=(self.pos_x - off_x, self.pos_y - off_y))
         screen.blit(rotated_sprite, new_rect.topleft)
 
-        #center the pointer image with the tip of the cursor
+        # Center the pointer image with the tip of the cursor
         pointer_center_x = self.pointer_x - self.pointer_image.get_width() // 2
         pointer_center_y = self.pointer_y - self.pointer_image.get_height() // 2
         screen.blit(self.pointer_image, (pointer_center_x, pointer_center_y))
 
     def update_position(self, hero):
-        """This method keeps the weapon attached to the hero"""
+        """
+        Update the weapon's position to keep it attached to the hero.
+        The weapon's position is updated only when the attack is not in progress.
+        """
         if not self.attack:
-            self.pos_x = hero.pos_x + hero.width 
-            self.pos_y = hero.pos_y + hero.height + 20
+            self.pos_x = hero.pos_x
+            self.pos_y = hero.pos_y
 
+        # Update pointer position in case it changed
         self.pointer_x, self.pointer_y = pygame.mouse.get_pos()
 
-    def launch_attack(self, event):
-        """This method is responsible for triggering the attack when a click is detected"""
-        #the second condition fixed the click mid flight change in directory
-        if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1) and self.attack == False:
-            print("IM WORKING")
+    def launch_attack(self, event, off_x, off_y):
+        """
+        Trigger the attack when a mouse click is detected.
+        The `off_x` and `off_y` parameters represent the map offsets (game_map.offset_x and game_map.offset_y).
+        """
+        if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1) and not self.attack:
             self.attack = True
-            self.dir_x, self.dir_y = self._calculate_direction(self.pos_x, self.pos_y, self.pointer_x, self.pointer_y)
+            pointer_x_corrected = self.pointer_x + off_x
+            pointer_y_corrected = self.pointer_y + off_y
+            self.dir_x, self.dir_y = self._calculate_direction(self.pos_x, self.pos_y, pointer_x_corrected, pointer_y_corrected)
 
-    """this only triggers during an EVENT, if you dont want it to trigger, address the event"""
-    def fire(self, hero):
+    def fire(self, hero, map_width, map_height):
+        """
+        Move the weapon in the direction of the pointer if an attack is in progress.
+        The weapon resets to the hero's position if it goes out of the map's bounds.
+        """
         if self.attack:
             # Move the weapon in the direction of the pointer
             self.pos_x += self.dir_x * self.attack_speed
             self.pos_y += self.dir_y * self.attack_speed
-        
-        if self.pos_y < 0 or self.pos_x < 0 or self.pos_y > hero.config["screen_height"] or self.pos_x > hero.config["screen_width"]:
+
+        # Check against the full map boundaries, not just screen size
+        if (self.pos_y < 0 or self.pos_x < 0 or 
+            self.pos_y > map_height or self.pos_x > map_width):
             self.attack = False
-            self.pos_x = hero.pos_x 
+            self.pos_x = hero.pos_x
             self.pos_y = hero.pos_y
 
     def get_rect(self):
         return pygame.Rect(self.pos_x, self.pos_y, self.width, self.height)
 
-
     def inspect(self):
-        print("----- WEAPON INSPECTION -----")
-        print(" ")
-        print(" ")
-        print(" ------ weapon specs ------  ")
-        
-        # print(f"Damage: {self.damage}")
-        # print(f"Range: {self.range}")
-        # print(f"Attack Speed: {self.attack_speed}")
-        # print(f"Attack Cooldown: {self.attack_cooldown}")
-        print(f"Scale: {self.scale}")
-        # print(f"Weapon Sprite Dimensions (width x height): ({self.width} x {self.height})")
-        print("-------------------------")
-        print(" ")
-        print(" ")
-    
-        print("----- Weapon State --------")
-        print(f"Attack Status: {self.attack}")
-        # print(f"Collision Status (colided): {self.colided}")
-        # print(f"Out of Range Status: {self.out_of_range}")
-        # print(f"Out of Map Status: {self.out_of_map}")
-        # print(f"Attack in Progress: {self.attack_in_progress}")
-        print(" ----------------------")
-        print(" ")
-        print(" ")
-        
+        """
+        Print out detailed information about the weapon's state for debugging purposes.
+        """
         print(" ------ weapon travel --------")
+        print(f"Scale: {self.scale}")
+        print(f"Attack Status: {self.attack}")
         print(f"Weapon Position (pos_x, pos_y): ({self.pos_x}, {self.pos_y})")
         print(f"Pointer Position (pointer_x, pointer_y): ({self.pointer_x}, {self.pointer_y})")
         print(f"Direction Vector (dir_x, dir_y): ({self.dir_x}, {self.dir_y})")
-    
-        # Inspect calculated angle if needed
         angle = self._calculate_angle(self.pos_x, self.pos_y, self.pointer_x, self.pointer_y)
         print(f"Calculated Angle (radians): {angle}")
         print(f"Calculated Angle (degrees): {math.degrees(angle)}")
-
         print("---------------------")
-    
-        # Display whether the weapon is moving (attack is in progress)
-        if self.attack:
-            print("Weapon is currently in motion.")
-
         print("----- END OF INSPECTION -----\n")
+
+
+
+    
 
     
     

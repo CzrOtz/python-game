@@ -2,9 +2,9 @@ import pygame
 
 class Hero:
     def __init__(self, config):
-        self.pos_x = config["pos_x"]
-        self.pos_y = config["pos_y"]
-        self.speed = config["speed"]
+        self.pos_x = config["pos_x"] * config["scale"]
+        self.pos_y = config["pos_y"] * config["scale"]
+        self.speed = config["speed"] * config["scale"]
         self.moving_left = False
         self.moving_right = False
         self.moving_up = False
@@ -107,6 +107,7 @@ class Hero:
         print(" ")
         print(" ------ Hero Position ------  ")
         print(f"Hero Position (pos_x, pos_y): ({self.pos_x}, {self.pos_y})")
+        print(f'Hero Position in tiles (x, y): ({self.x_positionInTiles()}, {self.y_positionInTiles()})')
         print(f'Hero scale (scale): {self.scale}')
         print("-------------------------")
     

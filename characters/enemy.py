@@ -48,6 +48,7 @@ class Ghost(Enemy):
         self.r_number_max = config["r_number_max"]
         self.braking_distance = config["braking_distance"]
         self.speed_modified = False  # Track if speed has been modified
+        self.health = config["health"]
 
     def master_movement(self, hero):
         # Calculate the distance between the ghost and the hero

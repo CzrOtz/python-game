@@ -50,12 +50,13 @@ class GhostManager:
         for ghost in self.ghosts:
             if hero.get_rect().colliderect(ghost.get_rect()):
                 # print(f'Ghost at ({ghost.pos_x}, {ghost.pos_y}) collided with you')
-                print(" ")
+                print(" got you ")
                 # Handle collision (e.g., increase score, end game, etc.)
             
             if weapon.get_rect().colliderect(ghost.get_rect()):
                 # print(f'Ghost at ({ghost.pos_x}, {ghost.pos_y}) was hit by your weapon')
-                print(" ")
+                print(" ouch that hurt ")
+             
                 # Handle collision (e.g., increase score, end game, etc.)
 
 def deploy_ghosts(char, map, wpn, ghost):

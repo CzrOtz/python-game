@@ -1,5 +1,7 @@
 
 
-pointer position x / direction vector x 
-pointer position y / direction vector y
+
+scale is not being taken into account 
+
+pos x and pos y of hero must be multiplied by scale
 

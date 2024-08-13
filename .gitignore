@@ -1,0 +1,12 @@
+.venv/
+
+test_map_details.txt
+
+notes.txt
+
+__pycache__/
+
+characters/__pycache__/
+
+*.pyc
+

@@ -2,10 +2,10 @@
 import pygame
 
 # Screen settings
-SCREEN_WIDTH = 950
-SCREEN_HEIGHT = 950
+SCREEN_WIDTH = 1200
+SCREEN_HEIGHT = 1000
 FPS = 60
-scale = 3
+scale = 5
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Endless Runner Prototype")
 clock = pygame.time.Clock()
@@ -13,8 +13,13 @@ clock = pygame.time.Clock()
 # Initial number of ghosts
 initial_ghost_quantity = 1
 
+maps = {
+    "beta": "new_map/new_world.tmx",
+    "testing": "new_map/map_for_testing.tmx",
+}
+
 map_config = {
-    "tilemap_path": "new_map/new_world.tmx",
+    "tilemap_path": maps["beta"],
     "pixelalpha": True,
     "scale": scale,
     "screen_width": SCREEN_WIDTH,
@@ -25,25 +30,27 @@ map_config = {
 }
 
 hero_config = {
-    "pos_x": 700,
-    "pos_y": 850,
-    "speed": 4,
+    "pos_x":160,
+    "pos_y": 205,
+    "speed": 2,
     "scale": scale,
     "sprite_path": "characters/pngBank/tile_0097.png",
     "screen_width": SCREEN_WIDTH,
     "screen_height": SCREEN_HEIGHT,
-    "weapon": "characters/pngBank/tile_0103.png",
-    "weapon_speed": 10
+    
+    
 }
 
 hero_weapon_config = {
     "damage": 1,
     "range": 10,
-    "speed": 10,
+    "speed": 20,
     "scale": scale,
     "sprite_path": "characters/pngBank/tile_0131.png",
     "pointer_sp": "characters/pngBank/tile_0101.png",
     "cooldown": 500,
+    "position_x": hero_config["pos_x"],
+    "position_y": hero_config["pos_y"]
 }
 
 
@@ -66,6 +73,7 @@ def generate_ghost_config():
         "braking_distance": 150,
         "r_number_min": 0,
         "r_number_max": 6,
+        "health": 100
     }
 
 
