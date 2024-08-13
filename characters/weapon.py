@@ -125,7 +125,38 @@ class Weapon:
     
 
     
-    
+
+
+
+"""
+In the original code, the boundary check in the fire method was based on the screen dimensions
+which caused the weapon to stop functioning when the the heros position exceeded the screens boundaries
+
+
+if (self.pos_y < 0 or self.pos_x < 0 or 
+        self.pos_y > hero.config["screen_height"] or self.pos_x > hero.config["screen_width"]):
+        self.attack = False
+        self.pos_x = hero.pos_x
+        self.pos_y = hero.pos_y
+
+
+the line that fixed this was 
+
+if (self.pos_y < 0 or self.pos_x < 0 or self.pos_y > map_height or self.pos_x > map_width):
+
+
+the offset was wrong when
+
+def display(self, screen, off_x, off_y):
+    # Use the stored angle if the attack is in progress
+    if not self.attack:
+        self.angle = self._calculate_angle(self.pos_x - off_x, self.pos_y - off_y, self.pointer_x, self.pointer_y)
+
+it was corrected with 
+
+        pointer_x_corrected = self.pointer_x + off_x
+        pointer_y_corrected = self.pointer_y + off_y
+"""
 
 
 
