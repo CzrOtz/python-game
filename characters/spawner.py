@@ -55,6 +55,10 @@ class GhostManager:
                 # print(" ouch that hurt ")
                 self._reduce_health(ghost, weapon)
                 print("reducing health")
+                ghost.hit_sound.play()
+                
+                
+
                 # Handle collision (e.g., increase score, end game, etc.)
 
     def _reduce_health(self, ghost, weapon):

@@ -45,7 +45,7 @@ hero_weapon_config = {
     "damage": 10,
     "range": 10,
     "speed": 20,
-    "scale": scale,
+    "scale": scale - 1.2,
     "sprite_path": "characters/pngBank/tile_0131.png",
     "pointer_sp": "characters/pngBank/tile_0101.png",
     "cooldown": 500,
@@ -96,7 +96,8 @@ def generate_ghost_config():
         "braking_distance": 150,
         "r_number_min": 0,
         "r_number_max": 6,
-        "health": 100
+        "health": 100,
+        "hit_by_weapon": "characters/sounds/hit_marker.wav"
     }
 
 

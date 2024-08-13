@@ -14,5 +14,7 @@ characters/pngBank/
 
 new_map/__pycache__/map_behavior.cpython-310.pyc
 
+*.m4a
+
 
 

@@ -85,6 +85,9 @@ class Ghost(Enemy):
         self.speed_modified = False  # Track if speed has been modified
         self.health = config["health"]
 
+        # Load the sound file for when the ghost is hit
+        self.hit_sound = pygame.mixer.Sound(config["hit_by_weapon"])
+
     def master_movement(self, hero):
         # Calculate the distance between the ghost and the hero
         distance = ((hero.pos_x - self.pos_x) ** 2 + (hero.pos_y - self.pos_y) ** 2) ** 0.5
@@ -116,6 +119,11 @@ class Ghost(Enemy):
     def _restore_speed(self):
         self.speed = self.original_speed
         self.speed_modified = False
+    
+    def play_hit_sound(self):
+        """Play the sound when the ghost is hit."""
+        self.hit_sound.play()
+
     
     
 
