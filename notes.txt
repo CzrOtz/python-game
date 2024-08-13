@@ -5,3 +5,6 @@ scale is not being taken into account
 
 pos x and pos y of hero must be multiplied by scale
 
+
+testing source contro
+
