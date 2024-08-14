@@ -76,6 +76,9 @@ class Enemy:
         screen.blit(mask_surface, (pos_x, pos_y))
         # print("everything is triggering for each ghost")
 
+        
+                
+
 class Ghost(Enemy):
     def __init__(self, config):
         super().__init__(config)
@@ -87,6 +90,8 @@ class Ghost(Enemy):
 
         # Load the sound file for when the ghost is hit
         self.hit_sound = pygame.mixer.Sound(config["hit_by_weapon"])
+        self.hit_ammount = 0
+        self.hit_registered = False
 
     def master_movement(self, hero):
         # Calculate the distance between the ghost and the hero
@@ -123,6 +128,23 @@ class Ghost(Enemy):
     def play_hit_sound(self):
         """Play the sound when the ghost is hit."""
         self.hit_sound.play()
+    
+    def reduce_health(self, ghost, weapon):
+            print("reducing health")
+            self.health -= weapon.damage
+    
+    def reset_hit_status(self):
+        """Reset the hit status of the ghost."""
+        self.hit_registered = False
+    
+        
+
+            
+            
+
+    
+    
+        
 
     
     

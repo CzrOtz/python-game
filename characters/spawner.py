@@ -1,7 +1,9 @@
 import pygame
-import random
 from characters.enemy import Ghost
 from config import generate_ghost_config
+
+"""variable set to true if the ghost is hit by the weapon"""
+"""this will only allow the ghost to be hit once"""
 
 class GhostManager:
     def __init__(self, config):
@@ -31,9 +33,8 @@ class GhostManager:
         new_ghost_config = generate_ghost_config()
         self.ghosts.append(Ghost(new_ghost_config))
 
-    """this method applies the collision check to each ghost in the list"""
-    """if the weapon is not moving, then dont reduce health"""
-    """if the ghost made contact with the weapon, then stop redicing health"""
+    
+
     def check_collisions(self, hero, weapon):
         hero_mask = hero.get_mask()
         hero_mask_offset = hero.get_mask_offset()
@@ -48,26 +49,31 @@ class GhostManager:
             # Check collision between hero and ghost
             if hero_mask.overlap(ghost_mask, (ghost_mask_offset[0] - hero_mask_offset[0], ghost_mask_offset[1] - hero_mask_offset[1])):
                 print(" got you ")
-                
 
             # Check collision between weapon and ghost
             if weapon_mask.overlap(ghost_mask, (ghost_mask_offset[0] - weapon_mask_offset[0], ghost_mask_offset[1] - weapon_mask_offset[1])) and weapon.attack:
-                # print(" ouch that hurt ")
-                self._reduce_health(ghost, weapon)
-                print("reducing health")
-                ghost.hit_sound.play()
+                if not ghost.hit_registered:
+                    ghost.reduce_health(ghost, weapon)
+                    ghost.hit_sound.play()
+                    ghost.hit_ammount += 1
+                    ghost.hit_registered = True  # Mark ghost as hit
+                    print(f'ammount of hits: {ghost.hit_ammount}')
+                    print(f'ghost health: {ghost.health}')
+                    
+
+                if ghost.health <= 0:
+                    self.ghosts.remove(ghost)
+
+        # Reset hit status if the projectile is no longer in contact
+            if not weapon_mask.overlap(ghost_mask, (ghost_mask_offset[0] - weapon_mask_offset[0], ghost_mask_offset[1] - weapon_mask_offset[1])):
+                ghost.reset_hit_status()
+                
                 
                 
 
-                # Handle collision (e.g., increase score, end game, etc.)
+                
 
-    def _reduce_health(self, ghost, weapon):
-        ghost.health -= weapon.damage
-        # print(f"Ghost health: {ghost.health}")
-        if ghost.health <= 0:
-            self.ghosts.remove(ghost)
-            # print("ghost removed")
-            # Handle ghost death (e.g., increase score, etc.)
+   
     
     def inspect(self):
         """Prints out detailed information about each ghost in the list."""

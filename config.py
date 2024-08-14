@@ -63,21 +63,6 @@ ghost_spawn_config = {
     "scale": scale, 
 }
 
-# def generate_ghost_config():
-#     return {
-#         "pos_x": 500,
-#         "pos_y": 1500,
-#         "speed": 1.5,
-#         "scale": scale,
-#         "sprite_path": "characters/pngBank/tile_0109.png",
-#         "braking_distance": 150,
-#         "r_number_min": 0,
-#         "r_number_max": 6,
-#         "health": 100
-#     }
-
-
-
 
 ghost_spawn_config = {
     "initial_ghost_quantity": 1,
@@ -97,7 +82,7 @@ def generate_ghost_config():
         "r_number_min": 0,
         "r_number_max": 6,
         "health": 100,
-        "hit_by_weapon": "characters/sounds/hit_marker.wav"
+        "hit_by_weapon": "characters/sounds/hit_marker2.wav"
     }
 
 

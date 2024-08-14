@@ -11,6 +11,7 @@ class Weapon:
         self.scale = config["scale"]
         self.damage = config["damage"]
         self.attack = False
+        self.hit_by_weapon = False
         self.angle = 0
 
         # Load and scale the weapon sprite (Original Sprite)
