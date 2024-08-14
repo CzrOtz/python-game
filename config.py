@@ -42,7 +42,7 @@ hero_config = {
 }
 
 hero_weapon_config = {
-    "damage": 10,
+    "damage": 34,
     "range": 10,
     "speed": 20,
     "scale": scale - 1.2,
@@ -50,23 +50,14 @@ hero_weapon_config = {
     "pointer_sp": "characters/pngBank/tile_0101.png",
     "cooldown": 500,
     "position_x": hero_config["pos_x"],
-    "position_y": hero_config["pos_y"]
-}
-
-
-
-
-ghost_spawn_config = {
-    "initial_ghost_quantity": 1,
-    "spawn_rate": 5000,
-    "screen": screen,
-    "scale": scale, 
+    "position_y": hero_config["pos_y"],
+    "sound": "characters/sounds/Arrow2.wav",
 }
 
 
 ghost_spawn_config = {
     "initial_ghost_quantity": 1,
-    "spawn_rate": 5000,
+    "spawn_rate": 2500,
     "screen": screen,
     "scale": scale, 
 }

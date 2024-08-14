@@ -34,6 +34,8 @@ class Weapon:
         self.dir_x = 0
         self.dir_y = 0
 
+        self.sound = pygame.mixer.Sound(config["sound"])
+
     def _calculate_angle(self, x1, y1, x2, y2):
         return math.atan2(y2 - y1, x2 - x1)
 
@@ -73,6 +75,7 @@ class Weapon:
     def launch_attack(self, event, off_x, off_y):
         if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1) and not self.attack:
             self.attack = True
+            self.sound.play()
             pointer_x_corrected = self.pointer_x + off_x
             pointer_y_corrected = self.pointer_y + off_y
             self.dir_x, self.dir_y = self._calculate_direction(self.pos_x, self.pos_y, pointer_x_corrected, pointer_y_corrected)
@@ -81,6 +84,7 @@ class Weapon:
         if self.attack:
             self.pos_x += self.dir_x * self.attack_speed
             self.pos_y += self.dir_y * self.attack_speed
+            
 
         if self.pos_y < 0 or self.pos_x < 0 or self.pos_y > map_height or self.pos_x > map_width:
             self.attack = False

@@ -26,6 +26,7 @@ class GhostManager:
         for ghost in self.ghosts:
             ghost.master_movement(hero)
             ghost.display(self.screen, game_map)
+            ghost.draw_hit_marker(self.screen, game_map)
             
 
     """this method adds a new ghost to the list"""
@@ -55,6 +56,7 @@ class GhostManager:
                 if not ghost.hit_registered:
                     ghost.reduce_health(ghost, weapon)
                     ghost.hit_sound.play()
+                    ghost.show_hit_marker()
                     ghost.hit_ammount += 1
                     ghost.hit_registered = True  # Mark ghost as hit
                     print(f'ammount of hits: {ghost.hit_ammount}')
@@ -62,19 +64,15 @@ class GhostManager:
                     
 
                 if ghost.health <= 0:
+                    ghost.show_hit_marker()
                     self.ghosts.remove(ghost)
+                    
 
         # Reset hit status if the projectile is no longer in contact
             if not weapon_mask.overlap(ghost_mask, (ghost_mask_offset[0] - weapon_mask_offset[0], ghost_mask_offset[1] - weapon_mask_offset[1])):
                 ghost.reset_hit_status()
                 
                 
-                
-
-                
-
-   
-    
     def inspect(self):
         """Prints out detailed information about each ghost in the list."""
         print("----- Ghost List Detailed Inspection -----")

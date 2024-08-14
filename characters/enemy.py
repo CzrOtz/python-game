@@ -1,9 +1,6 @@
 import pygame
 import random
-
-"""
-These classes dictate the behavior of the individual enemies in the game
-"""
+import time
 
 class Enemy:
     def __init__(self, config):
@@ -74,10 +71,7 @@ class Enemy:
     
         # Blit the red surface onto the screen at the correct position
         screen.blit(mask_surface, (pos_x, pos_y))
-        # print("everything is triggering for each ghost")
 
-        
-                
 
 class Ghost(Enemy):
     def __init__(self, config):
@@ -92,6 +86,14 @@ class Ghost(Enemy):
         self.hit_sound = pygame.mixer.Sound(config["hit_by_weapon"])
         self.hit_ammount = 0
         self.hit_registered = False
+
+        # Hit marker attributes
+        self.hit_marker_duration = 0.1  # duration in seconds
+        self.hit_marker_size = 20  # size of the hit marker
+        self.hit_marker_color = (255, 0, 0)  # red color
+        self.hit_marker_time = 0  # time when the hit marker should disappear
+
+        
 
     def master_movement(self, hero):
         # Calculate the distance between the ghost and the hero
@@ -130,12 +132,29 @@ class Ghost(Enemy):
         self.hit_sound.play()
     
     def reduce_health(self, ghost, weapon):
-            print("reducing health")
-            self.health -= weapon.damage
-    
+        print("reducing health")
+        self.health -= weapon.damage
+        self.show_hit_marker()
+
+    def show_hit_marker(self):
+        """Trigger the hit marker display."""
+        self.hit_marker_time = time.time() + self.hit_marker_duration
+
+    def draw_hit_marker(self, screen, map):
+        """Draw the hit marker if it's within the display time."""
+        if time.time() < self.hit_marker_time:
+            marker_rect = pygame.Rect(
+                self.pos_x - map.offset_x + self.width // 2 - self.hit_marker_size // 2,
+                self.pos_y - map.offset_y + self.height // 2 - self.hit_marker_size // 2,
+                self.hit_marker_size,
+                self.hit_marker_size
+            )
+            pygame.draw.rect(screen, self.hit_marker_color, marker_rect)
+
     def reset_hit_status(self):
         """Reset the hit status of the ghost."""
         self.hit_registered = False
+
     
         
 
