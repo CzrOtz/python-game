@@ -95,7 +95,7 @@ class Weapon:
             self.attack = False
             self.pos_x = hero.pos_x
             self.pos_y = hero.pos_y
-            print("collision detected with map")
+            
 
     def get_mask(self):
         return self.mask

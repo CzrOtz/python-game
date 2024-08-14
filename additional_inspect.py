@@ -1,5 +1,6 @@
 import math
 
+
 def analyze_weapon_movement(weapon, hero):
     # Calculate distances between the weapon and the pointer
     distance_to_pointer = math.sqrt((weapon.pointer_x - weapon.pos_x) ** 2 + (weapon.pointer_y - weapon.pos_y) ** 2)
@@ -40,4 +41,6 @@ def view_masks(map, hero, weapon, ghost, screen):
     weapon.draw_mask(screen, map.offset_x, map.offset_y)
     hero.draw_mask(screen, map.offset_x, map.offset_y)
     ghost.draw_all_masks(map)
+
+
 

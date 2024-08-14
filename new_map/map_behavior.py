@@ -64,6 +64,11 @@ class Map:
         screen_width, screen_height = self.config["screen_width"], self.config["screen_height"]
         self.offset_x = max(0, min(hero_pos_x - screen_width // 2, self.map_width - screen_width))
         self.offset_y = max(0, min(hero_pos_y - screen_height // 2, self.map_height - screen_height))
+        
+
+        # # Correct small offset errors by ensuring the offsets are multiples of tile size
+        # self.offset_x = self.offset_x - (self.offset_x % self.tmx_data.tilewidth)
+        # self.offset_y = self.offset_y - (self.offset_y % self.tmx_data.tileheight)
 
     def collided_with(self, hero):
         hero_rect = hero.get_rect()
@@ -91,6 +96,74 @@ class Map:
     
         # Blit the red surface onto the screen with the map offsets
         screen.blit(red_surface, (-self.offset_x, -self.offset_y))
+    
+    def inspect_map(self):
+        print("----- Begining of Map Inspection -----")
+        print(f"Map Width (in pixels): {self.map_width}")
+        print(f"Map Height (in pixels): {self.map_height}")
+        print(f"Tile Width: {self.tmx_data.tilewidth}")
+        print(f"Tile Height: {self.tmx_data.tileheight}")
+        print(f"Number of Tiles (width x height): {self.tmx_data.width} x {self.tmx_data.height}")
+
+        # Convert the generator to a list
+        visible_layers = list(self.tmx_data.visible_layers)
+        print(f"Number of Layers: {len(visible_layers)}")
+    
+        for layer in visible_layers:
+            if isinstance(layer, pytmx.TiledObjectGroup):
+                print(f"\nLayer: {layer.name}")
+                print(f"Number of Objects: {len(layer)}")
+                for obj in layer:
+                    print(f"\nObject ID: {obj.id}")
+                    print(f"Object Name: {obj.name}")
+                    print(f"Object Type: {obj.type}")
+                    print(f"Object Position: (x: {obj.x}, y: {obj.y})")
+                    if hasattr(obj, 'width') and hasattr(obj, 'height'):
+                        print(f"Object Size: (width: {obj.width}, height: {obj.height})")
+                    if hasattr(obj, 'polygon'):
+                        print(f"Object Polygon Points: {obj.polygon}")
+                    if hasattr(obj, 'polyline'):
+                        print(f"Object Polyline Points: {obj.polyline}")
+                    # Check if object is correctly aligned to the grid
+                    if obj.x % self.tmx_data.tilewidth != 0 or obj.y % self.tmx_data.tileheight != 0:
+                        print("WARNING: Object is not aligned to the grid!")
+            elif isinstance(layer, pytmx.TiledTileLayer):
+                print(f"\nTile Layer: {layer.name}")
+                print(f"Layer Size (in tiles): {layer.width} x {layer.height}")
+    
+        print("----- End of Map Inspection -----")
+    
+    def inspect_drawing_coordinates(self):
+        screen_width, screen_height = self.config["screen_width"], self.config["screen_height"]
+        start_x = max(0, self.offset_x // self.tmx_data.tilewidth)
+        start_y = max(0, self.offset_y // self.tmx_data.tileheight)
+        end_x = min(self.tmx_data.width, (self.offset_x + screen_width) // self.tmx_data.tilewidth + 1)
+        end_y = min(self.tmx_data.height, (self.offset_y + screen_height) // self.tmx_data.tileheight + 1)
+    
+        print("----- Begining of Drawing Coordinate Inspection -----")
+        for layer in self.tmx_data.visible_layers:
+            if isinstance(layer, pytmx.TiledTileLayer):
+                print(f"Tile Layer: {layer.name}")
+                for x in range(start_x, end_x):
+                    for y in range(start_y, end_y):
+                        gid = layer.data[y][x]
+                        if gid:
+                            tile = self.tmx_data.get_tile_image_by_gid(gid)
+                            if tile:
+                                draw_pos = (x * self.tmx_data.tilewidth - self.offset_x, y * self.tmx_data.tileheight - self.offset_y)
+                                print(f"Drawing tile at position: {draw_pos}")
+        
+            if isinstance(layer, pytmx.TiledObjectGroup):
+                print(f"Object Layer: {layer.name}")
+                for obj in layer:
+                    draw_pos = (obj.x - self.offset_x, obj.y - self.offset_y)
+                    print(f"Drawing object at position: {draw_pos}")
+    
+        print("----- End of Drawing Coordinate Inspection -----")
+
+    
+    
+
 
 
 

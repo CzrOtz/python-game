@@ -1,10 +1,162 @@
+In this map, the objects are in a good spot, they work, i have no problem:
+----- Begining of Map Inspection -----
+Map Width (in pixels): 960
+Map Height (in pixels): 960
+Tile Width: 16
+Tile Height: 16
+Number of Tiles (width x height): 20 x 20
+Number of Layers: 2
+
+Tile Layer: Tile Layer 1
+Layer Size (in tiles): 20 x 20
+
+Layer: walls
+Number of Objects: 11
+
+Object ID: 21
+Object Name: brick wall
+Object Type: wall
+Object Position: (x: 192.0, y: 47.9375)
+Object Size: (width: 47.9375, height: 16.1875)
+WARNING: Object is not aligned to the grid!
+
+Object ID: 23
+Object Name: brick wall
+Object Type: wall
+Object Position: (x: 256.0, y: 80.0909)
+Object Size: (width: 16.0909091, height: 48.0)
+WARNING: Object is not aligned to the grid!
+
+Object ID: 24
+Object Name: brick wall
+Object Type: wall
+Object Position: (x: 144.182, y: 144.091)
+Object Size: (width: 48.090936, height: 15.6364)
+WARNING: Object is not aligned to the grid!
+
+Object ID: 26
+Object Name: brick wall
+Object Type: wall
+Object Position: (x: 33.75, y: 80.125)
+Object Size: (width: 48.375, height: 15.875)
+WARNING: Object is not aligned to the grid!
+
+Object ID: 27
+Object Name: brick wall
+Object Type: wall
+Object Position: (x: 48.1818, y: 176.091)
+Object Size: (width: 48.090936, height: 16.0909)
+WARNING: Object is not aligned to the grid!
+
+Object ID: 28
+Object Name: brick wall
+Object Type: wall
+Object Position: (x: 64.25, y: 224.25)
+Object Size: (width: 16.0, height: 47.5)
+WARNING: Object is not aligned to the grid!
+
+Object ID: 29
+Object Name: brick wall
+Object Type: wall
+Object Position: (x: 208.0, y: 239.75)
+Object Size: (width: 16.0, height: 48.25)
+WARNING: Object is not aligned to the grid!
+
+Object ID: 48
+Object Name: brick wall
+Object Type: wall
+Object Position: (x: 18.6667, y: 3.33333)
+Object Size: (width: 302.0, height: 15.66663)
+WARNING: Object is not aligned to the grid!
+
+Object ID: 49
+Object Name: brick wall
+Object Type: wall
+Object Position: (x: 304.667, y: 19.3333)
+Object Size: (width: 16.333333, height: 300.667)
+WARNING: Object is not aligned to the grid!
+
+Object ID: 58
+Object Name: brick wall
+Object Type: wall
+Object Position: (x: 2.33333, y: 14.6667)
+Object Size: (width: 13.3333, height: 302.333)
+WARNING: Object is not aligned to the grid!
+
+Object ID: 63
+Object Name: brick wall
+Object Type: wall
+Object Position: (x: 18.6667, y: 304.667)
+Object Size: (width: 284.333333, height: 15.0)
+WARNING: Object is not aligned to the grid!
+----- End of Map Inspection -----
+
+in this map, two of the objects are fine.
+
+object id 3 is fine, and object id 1 is good enough.
+
+object 5 and 2 are horribly off to the lower right
+
+
+this next map, every object is completely off
+
+----- Begining of Map Inspection -----
+Map Width (in pixels): 1440
+Map Height (in pixels): 1440
+Tile Width: 16
+Tile Height: 16
+Number of Tiles (width x height): 30 x 30
+Number of Layers: 2
+
+Tile Layer: Tile Layer 1
+Layer Size (in tiles): 30 x 30
+
+Layer: walls
+Number of Objects: 6
+
+Object ID: 1
+Object Name: brick wall
+Object Type: wall
+Object Position: (x: 240.0, y: 256.667)
+Object Size: (width: 128.333, height: 15.6667)
+WARNING: Object is not aligned to the grid!
+
+Object ID: 2
+Object Name: brick wall
+Object Type: wall
+Object Position: (x: 224.0, y: 288.667)
+Object Size: (width: 64.0, height: 15.6667)
+WARNING: Object is not aligned to the grid!
+
+Object ID: 3
+Object Name: brick wall
+Object Type: wall
+Object Position: (x: 208.333, y: 337.0)
+Object Size: (width: 48.3333, height: 15.000033)
+WARNING: Object is not aligned to the grid!
+
+Object ID: 5
+Object Name: brick wall
+Object Type: wall
+Object Position: (x: 304.0, y: 95.6667)
+Object Size: (width: 16.0, height: 112.0)
+WARNING: Object is not aligned to the grid!
+
+Object ID: 6
+Object Name: brick wall
+Object Type: wall
+Object Position: (x: 304.333, y: 223.667)
+Object Size: (width: 16.3333, height: 64.333333)
+WARNING: Object is not aligned to the grid!
+
+Object ID: 7
+Object Name: brick wall
+Object Type: wall
+Object Position: (x: 304.333, y: 304.0)
+Object Size: (width: 16.666633, height: 48.0)
+WARNING: Object is not aligned to the grid!
+----- End of Map Inspection -----
 
 
 
-scale is not being taken into account 
-
-pos x and pos y of hero must be multiplied by scale
-
-
-testing source contro
 

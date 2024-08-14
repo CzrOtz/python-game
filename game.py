@@ -13,6 +13,7 @@ from additional_inspect import view_masks
 
 
 
+
 # Initialize Pygame
 pygame.init()
 
@@ -37,7 +38,7 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == ghost_manager.add_ghost_event:
-                # ghost_manager.add_new_ghost()
+                ghost_manager.add_new_ghost()
                 pass
             else:
                 hero.movement_flags(event)
@@ -47,7 +48,7 @@ def main():
         game_map.draw()
         
         deploy_hero(hero, game_map, config.screen, game_map.offset_x, game_map.offset_y)
-        # deploy_ghosts(hero, game_map, weapon, ghost_manager)
+        deploy_ghosts(hero, game_map, weapon, ghost_manager)
         
         weapon.display(config.screen, game_map.offset_x, game_map.offset_y)
         weapon.update_position(hero)
@@ -56,6 +57,11 @@ def main():
         
 
         view_masks(game_map, hero, weapon, ghost_manager, config.screen)
+        # game_map.inspect_map()
+        # game_map.inspect_drawing_coordinates()
+        
+
+
 
        
         
