@@ -1,9 +1,6 @@
 import pygame
 import pytmx
 
-#this class renders a map
-#applies a mask to the map to detect collisions
-#no need to change this class
 class Map:
     def __init__(self, config):
         self.config = config
@@ -28,13 +25,11 @@ class Map:
                 for obj in layer:
                     if obj.type == self.config["object_type"]:
                         if hasattr(obj, 'polygon'):
-                            polygon_points = [(obj.x + p[0], obj.y + p[1]) for p in obj.polygon]
-                            polygon_points_scaled = [(x * self.scale, y * self.scale) for x, y in polygon_points]
-                            pygame.draw.polygon(self.collision_surface, (255, 0, 0, 255), polygon_points_scaled)
+                            polygon_points = [(obj.x * self.scale + p[0] * self.scale, obj.y * self.scale + p[1] * self.scale) for p in obj.polygon]
+                            pygame.draw.polygon(self.collision_surface, (255, 0, 0, 255), polygon_points)
                         elif hasattr(obj, 'polyline'):
-                            polyline_points = [(obj.x + p[0], obj.y + p[1]) for p in obj.polyline]
-                            polyline_points_scaled = [(x * self.scale, y * self.scale) for x, y in polyline_points]
-                            pygame.draw.lines(self.collision_surface, (255, 0, 0, 255), False, polyline_points_scaled, 2)
+                            polyline_points = [(obj.x * self.scale + p[0] * self.scale, obj.y * self.scale + p[1] * self.scale) for p in obj.polyline]
+                            pygame.draw.lines(self.collision_surface, (255, 0, 0, 255), False, polyline_points, 2)
                         else:
                             tile_rect = pygame.Rect(
                                 obj.x * self.scale,
@@ -62,7 +57,8 @@ class Map:
                             tile = self.tmx_data.get_tile_image_by_gid(gid)
                             if tile:
                                 scaled_tile = pygame.transform.scale(tile, (self.tmx_data.tilewidth * self.scale, self.tmx_data.tileheight * self.scale))
-                                self.config["screen"].blit(scaled_tile, (x * self.tmx_data.tilewidth * self.scale - self.offset_x, y * self.tmx_data.tileheight * self.scale - self.offset_y))
+                                draw_pos = (x * self.tmx_data.tilewidth * self.scale - self.offset_x, y * self.tmx_data.tileheight * self.scale - self.offset_y)
+                                self.config["screen"].blit(scaled_tile, draw_pos)
 
     def update_offset(self, hero_pos_x, hero_pos_y):
         screen_width, screen_height = self.config["screen_width"], self.config["screen_height"]
@@ -78,14 +74,8 @@ class Map:
 
         # Check for overlap between the hero mask and the collision mask
         overlap = self.collision_mask.overlap(hero_mask, offset)
-        # print(f"Collision check at offset: {offset}, overlap: {overlap}")
 
-        if overlap:
-            # print("Collision detected: True")
-            return True
-        else:
-            # print("No collision detected: False")
-            return False
+        return bool(overlap)
         
     
     def draw_mask(self, screen):
@@ -101,6 +91,7 @@ class Map:
     
         # Blit the red surface onto the screen with the map offsets
         screen.blit(red_surface, (-self.offset_x, -self.offset_y))
+
 
 
 

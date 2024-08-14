@@ -84,6 +84,8 @@ class Ghost(Enemy):
 
         # Load the sound file for when the ghost is hit
         self.hit_sound = pygame.mixer.Sound(config["hit_by_weapon"])
+        self.spawn_sound = pygame.mixer.Sound(config["spawn_sound"])
+        self.gone_sound = pygame.mixer.Sound(config["gone_sound"])
         self.hit_ammount = 0
         self.hit_registered = False
 

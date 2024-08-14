@@ -32,7 +32,10 @@ class GhostManager:
     """this method adds a new ghost to the list"""
     def add_new_ghost(self):
         new_ghost_config = generate_ghost_config()
-        self.ghosts.append(Ghost(new_ghost_config))
+        new_ghost = Ghost(new_ghost_config)
+        self.ghosts.append(new_ghost)
+        new_ghost.spawn_sound.play()  # Play the spawn sound
+        
 
     
 
@@ -64,7 +67,7 @@ class GhostManager:
                     
 
                 if ghost.health <= 0:
-                    ghost.show_hit_marker()
+                    ghost.gone_sound.play()
                     self.ghosts.remove(ghost)
                     
 

@@ -37,7 +37,8 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == ghost_manager.add_ghost_event:
-                ghost_manager.add_new_ghost()
+                # ghost_manager.add_new_ghost()
+                pass
             else:
                 hero.movement_flags(event)
                 weapon.launch_attack(event, game_map.offset_x, game_map.offset_y)
@@ -46,18 +47,17 @@ def main():
         game_map.draw()
         
         deploy_hero(hero, game_map, config.screen, game_map.offset_x, game_map.offset_y)
-        deploy_ghosts(hero, game_map, weapon, ghost_manager)
+        # deploy_ghosts(hero, game_map, weapon, ghost_manager)
         
         weapon.display(config.screen, game_map.offset_x, game_map.offset_y)
         weapon.update_position(hero)
         weapon.fire(hero, game_map.map_width, game_map.map_height, game_map)
 
-        # game_map.draw_mask(config.screen)
-        # weapon.draw_mask(config.screen, game_map.offset_x, game_map.offset_y)
+        
 
-        # view_masks(game_map, hero, weapon, ghost_manager, config.screen)
+        view_masks(game_map, hero, weapon, ghost_manager, config.screen)
 
-        # weapon.inspect()
+       
         
 
       
