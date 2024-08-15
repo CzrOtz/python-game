@@ -12,6 +12,7 @@ class Hero:
         self.moving_down = False
         self.scale = config["scale"]
         self.config = config
+        self.health = config["health"]
 
         # Load the sprite directly from the PNG file
         self.sprite = pygame.image.load(config["sprite_path"]).convert_alpha()

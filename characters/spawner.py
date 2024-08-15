@@ -2,12 +2,13 @@
 import pygame
 from characters.enemy import Ghost
 from config import generate_ghost_config
+from navbar.navbar_and_clock import Navbar
 
 """variable set to true if the ghost is hit by the weapon"""
 """this will only allow the ghost to be hit once"""
 
 class GhostManager:
-    def __init__(self, config):
+    def __init__(self, config, navbar):
         self.ghosts = []
         self.screen = config["screen"]
         self.scale = config["scale"]
@@ -16,6 +17,7 @@ class GhostManager:
         pygame.time.set_timer(self.add_ghost_event, self.spawn_rate)  # Add a new ghost every `spawn_rate` milliseconds
         self.initial_ghost_quantity = config["initial_ghost_quantity"]
         self._generate_initial_ghosts()
+        self.navbar = navbar
 
     """this method generates the initial ghosts"""
     def _generate_initial_ghosts(self):
@@ -36,6 +38,7 @@ class GhostManager:
         new_ghost = Ghost(new_ghost_config)
         self.ghosts.append(new_ghost)
         new_ghost.spawn_sound.play()  # Play the spawn sound
+        self.navbar.enemies_on_screen += 1
         
 
     
@@ -53,7 +56,7 @@ class GhostManager:
 
             # Check collision between hero and ghost
             if hero_mask.overlap(ghost_mask, (ghost_mask_offset[0] - hero_mask_offset[0], ghost_mask_offset[1] - hero_mask_offset[1])):
-                print(" got you ")
+                hero.health -= 0.5
 
             # Check collision between weapon and ghost
             if weapon_mask.overlap(ghost_mask, (ghost_mask_offset[0] - weapon_mask_offset[0], ghost_mask_offset[1] - weapon_mask_offset[1])) and weapon.attack:
@@ -69,7 +72,9 @@ class GhostManager:
 
                 if ghost.health <= 0:
                     ghost.gone_sound.play()
+                    self.navbar.kill_count += 1
                     self.ghosts.remove(ghost)
+                    self.navbar.enemies_on_screen -= 1
                     
 
         # Reset hit status if the projectile is no longer in contact

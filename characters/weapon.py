@@ -14,6 +14,8 @@ class Weapon:
         self.attack = False
         self.hit_by_weapon = False
         self.angle = 0
+    
+        
 
         # Load and scale the weapon sprite (Original Sprite)
         self.original_sprite = pygame.image.load(config["sprite_path"]).convert_alpha()
@@ -36,6 +38,7 @@ class Weapon:
         self.dir_y = 0
 
         self.sound = pygame.mixer.Sound(config["sound"])
+        self.collision_sound = pygame.mixer.Sound(config["collision_sound"])
 
     def _calculate_angle(self, x1, y1, x2, y2):
         return math.atan2(y2 - y1, x2 - x1)
@@ -75,8 +78,8 @@ class Weapon:
 
     def launch_attack(self, event, off_x, off_y):
         if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1) and not self.attack:
-            self.attack = True
             self.sound.play()
+            self.attack = True
             pointer_x_corrected = self.pointer_x + off_x
             pointer_y_corrected = self.pointer_y + off_y
             self.dir_x, self.dir_y = self._calculate_direction(self.pos_x, self.pos_y, pointer_x_corrected, pointer_y_corrected)
@@ -93,9 +96,11 @@ class Weapon:
             self.pos_y = hero.pos_y
 
         if map.collided_with(self):
+            self.collision_sound.play()
             self.attack = False
             self.pos_x = hero.pos_x
             self.pos_y = hero.pos_y
+            
             
 
     def get_mask(self):
