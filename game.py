@@ -1,3 +1,4 @@
+#game.py
 import pygame
 import sys
 import config
@@ -7,11 +8,7 @@ from new_map.map_behavior import Map
 from characters.spawner import GhostManager
 from characters.spawner import deploy_ghosts
 from characters.weapon import Weapon
-from additional_inspect import analyze_weapon_movement
 from additional_inspect import view_masks
-
-
-
 
 
 # Initialize Pygame
@@ -30,6 +27,7 @@ game_map = Map(config.map_config)
 # Initialize GhostManager
 ghost_manager = GhostManager(config.ghost_spawn_config)
 
+
 # Main game loop
 def main():
     running = True
@@ -43,6 +41,8 @@ def main():
             else:
                 hero.movement_flags(event)
                 weapon.launch_attack(event, game_map.offset_x, game_map.offset_y)
+
+        
                 
         game_map.update_offset(hero.pos_x, hero.pos_y)
         game_map.draw()
@@ -56,7 +56,7 @@ def main():
 
         
 
-        view_masks(game_map, hero, weapon, ghost_manager, config.screen)
+        # view_masks(game_map, hero, weapon, ghost_manager, config.screen)
         # game_map.inspect_map()
         # game_map.inspect_drawing_coordinates()
         

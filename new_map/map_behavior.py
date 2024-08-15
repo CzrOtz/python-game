@@ -1,5 +1,11 @@
+#map behavior
 import pygame
 import pytmx
+
+"""
+when creating the objects on tiled, assure that the beggining of the object is in the top lefthad corner of the object
+if not, youll see the object being drawn in the wrong place
+"""
 
 class Map:
     def __init__(self, config):

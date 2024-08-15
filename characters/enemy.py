@@ -1,6 +1,8 @@
+#enemy.py
 import pygame
 import random
 import time
+
 
 class Enemy:
     def __init__(self, config):

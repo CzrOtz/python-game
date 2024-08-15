@@ -1,14 +1,16 @@
 # config.py
 import pygame
+import random
 
 # Screen settings
 SCREEN_WIDTH = 1100
 SCREEN_HEIGHT = 1000
 FPS = 60
-scale = 4
+scale = 3
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Endless Runner Prototype")
 clock = pygame.time.Clock()
+
 
 # Initial number of ghosts
 initial_ghost_quantity = 1
@@ -17,6 +19,7 @@ maps = {
     "beta": "new_map/new_world.tmx",
     "testing": "new_map/map_for_testing.tmx",
     "beta2": "new_map/debug1.tmx",
+    "beta3": "new_map/beta3.tmx",
     
 }
 
@@ -46,8 +49,8 @@ hero_config = {
 hero_weapon_config = {
     "damage": 34,
     "range": 10,
-    "speed": 35,
-    "scale": scale,
+    "speed": 50,
+    "scale": scale - 1.2,
     "sprite_path": "characters/pngBank/tile_0131.png",
     "pointer_sp": "characters/pngBank/tile_0101.png",
     "cooldown": 500,
@@ -63,22 +66,25 @@ ghost_spawn_config = {
     "screen": screen,
     "scale": scale, 
 }
-
 def generate_ghost_config():
+    map_width = map_config["screen_width"]
+    map_height = map_config["screen_height"]
+
     return {
-        "pos_x": 500,
-        "pos_y": 500,
+        "pos_x": random.randint(0, map_width - 1),
+        "pos_y": random.randint(0, map_height - 1),
         "speed": 1.5,
         "scale": scale,
         "sprite_path": "characters/pngBank/tile_0108.png",
-        "braking_distance": 150,
-        "r_number_min": 0,
-        "r_number_max": 6,
+        "braking_distance": 85,
+        "r_number_min": 1,
+        "r_number_max": 8,
         "health": 100,
         "hit_by_weapon": "characters/sounds/hit_marker2.wav",
         "spawn_sound": "characters/sounds/Ghost_gone_4.wav",
         "gone_sound": "characters/sounds/Ghost_spawn2.wav",
     }
+
 
 
 

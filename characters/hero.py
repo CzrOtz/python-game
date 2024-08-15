@@ -1,3 +1,4 @@
+#hero.py
 import pygame
 
 class Hero:

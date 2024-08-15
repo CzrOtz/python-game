@@ -1,3 +1,4 @@
+#spawner.py
 import pygame
 from characters.enemy import Ghost
 from config import generate_ghost_config
