@@ -58,6 +58,7 @@ class GhostManager:
             if hero_mask.overlap(ghost_mask, (ghost_mask_offset[0] - hero_mask_offset[0], ghost_mask_offset[1] - hero_mask_offset[1])):
                 hero.health -= 0.5
                 self.navbar.hero_health = hero.health
+                hero.trigger_hurt_effect()
 
             # Check collision between weapon and ghost
             if weapon_mask.overlap(ghost_mask, (ghost_mask_offset[0] - weapon_mask_offset[0], ghost_mask_offset[1] - weapon_mask_offset[1])) and weapon.attack:
@@ -67,10 +68,7 @@ class GhostManager:
                     ghost.show_hit_marker()
                     ghost.hit_ammount += 1
                     ghost.hit_registered = True  # Mark ghost as hit
-                    # print(f'ammount of hits: {ghost.hit_ammount}')
-                    # print(f'ghost health: {ghost.health}')
-                    
-
+                   
                 if ghost.health <= 0:
                     ghost.gone_sound.play()
                     self.navbar.kill_count += 1

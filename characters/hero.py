@@ -1,5 +1,6 @@
 #hero.py
 import pygame
+import time
 
 """
 Hearo in ghost Ghost manager
@@ -46,8 +47,13 @@ class Hero:
         # Create a mask for pixel-perfect collision detection
         self.mask = pygame.mask.from_surface(self.sprite)
 
+        # Hurt effect attributes
+        self.hurt_time = 0  # Time when the hero was last hurt
+        self.hurt_duration = 0.1  # Duration of the hurt effect in seconds
+
     def display(self, screen, offset_x, offset_y):
         screen.blit(self.sprite, (self.pos_x - offset_x, self.pos_y - offset_y))
+        self.draw_hurt_mask(screen, offset_x, offset_y)
 
     def move_up(self):
         self.pos_y -= self.speed
@@ -62,7 +68,6 @@ class Hero:
         self.pos_x -= self.speed
     
     def positionInTiles(self):
-        # When you do anything that is self., you're accessing the member variable that was passed to the class as a parameter
         tile_x = (self.pos_x // (16 * self.scale))
         tile_y = (self.pos_y // (16 * self.scale))
         print(f"Hero is at tile coordinates (x: {tile_x}, y: {tile_y})")
@@ -73,7 +78,6 @@ class Hero:
     def y_positionInTiles(self):
         return (self.pos_y // (16 * self.scale))
     
-
     def master_movement(self, map_instance):
         initial_pos_x = self.pos_x
         initial_pos_y = self.pos_y
@@ -87,7 +91,6 @@ class Hero:
         if self.moving_down:
             self.move_down()
 
-        # Add or is past the border of the screen 
         if map_instance.collided_with(self):
             self.pos_x = initial_pos_x
             self.pos_y = initial_pos_y
@@ -116,24 +119,28 @@ class Hero:
         return pygame.Rect(self.pos_x, self.pos_y, self.width, self.height)
 
     def get_mask(self):
-        """
-        Return the mask of the hero for pixel-perfect collision detection.
-        """
+        """Return the mask of the hero for pixel-perfect collision detection."""
         return self.mask
 
     def get_mask_offset(self):
-        """
-        Return the position offset of the mask to use in collision detection.
-        """
-        return (int(self.pos_x), int(self.pos_y))
+        """Return the position offset of the mask to use in collision detection."""
+        return int(self.pos_x), int(self.pos_y)
 
     def draw_mask(self, screen, offset_x, offset_y):
-        """
-        Draw the mask on the screen for debugging purposes.
-        This fills the mask with a semi-transparent red color.
-        """
+        """Draw the mask on the screen for debugging purposes."""
         mask_surface = self.mask.to_surface(setcolor=(255, 0, 0, 128), unsetcolor=(0, 0, 0, 0))
         screen.blit(mask_surface, (self.pos_x - offset_x, self.pos_y - offset_y))
+
+    def draw_hurt_mask(self, screen, offset_x, offset_y):
+        """Draw the hero's mask briefly when hurt."""
+        current_time = time.time()
+        if current_time - self.hurt_time < self.hurt_duration:
+            mask_surface = self.mask.to_surface(setcolor=(255, 0, 0, 128), unsetcolor=(0, 0, 0, 0))
+            screen.blit(mask_surface, (self.pos_x - offset_x, self.pos_y - offset_y))
+
+    def trigger_hurt_effect(self):
+        """Trigger the hurt effect."""
+        self.hurt_time = time.time()
 
     def display_position(self):
         print(f"Hero position: {self.pos_x}, {self.pos_y}")
@@ -168,7 +175,6 @@ def deploy_hero(char, map, screen, off_x, off_y):
     char.master_movement(map)
     char.display(screen, off_x, off_y)
     # char.draw_mask(screen, off_x, off_y)  # Optional: Draw the mask for debugging
-
 
    
 

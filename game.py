@@ -4,8 +4,8 @@ import configurations.config as config
 from characters.hero import Hero
 from characters.hero import deploy_hero
 from new_map.map_behavior import Map
-from characters.spawner import GhostManager
-from characters.spawner import deploy_ghosts
+from characters.ghost_manager import GhostManager
+from characters.ghost_manager import deploy_ghosts
 from characters.weapon import Weapon
 from configurations.navbar_and_clock import Navbar
 from configurations.navbar_and_clock import GameClock
