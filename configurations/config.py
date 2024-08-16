@@ -6,7 +6,7 @@ import random
 SCREEN_WIDTH = 1100
 SCREEN_HEIGHT = 1000
 FPS = 60
-scale = 4
+scale = 3
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Endless Runner Prototype")
 clock = pygame.time.Clock()
@@ -14,6 +14,16 @@ clock = pygame.time.Clock()
 
 # Initial number of ghosts
 initial_ghost_quantity = 1
+
+level_up_sound = "characters/sounds/level_up.wav"
+
+difficulty_config = {
+    "time_between_levels": 10,  # Time in seconds for each difficulty increase
+    "spawn_rate_decrement": 500,  # Decrease spawn rate by 500ms each level
+    "speed_increment": 0.3,  # Increase ghost speed by 0.3 each level
+    "attack_power_increment": 0.5,  # Increase ghost attack power by 0.5 each level
+    "braking_distance_decrement": 5,  # Decrease braking distance by 5 each level
+}
 
 maps = {
     "beta": "new_map/new_world.tmx",
@@ -72,13 +82,14 @@ ghost_spawn_config = {
 ghost_config_template = {
     "pos_x": 0,
     "pos_y": 0,
-    "speed": 1.5,
+    "speed": 0.5,
     "scale": scale,
     "sprite_path": "characters/pngBank/tile_0108.png",
-    "braking_distance": 85,
+    "braking_distance": 200,
     "r_number_min": 1,
     "r_number_max": 6,
     "health": 100,
+    "attack_power": 0.5,
     "hit_by_weapon": "characters/sounds/hit_marker2.wav",
     "spawn_sound": "characters/sounds/Ghost_gone_4.wav",
     "gone_sound": "characters/sounds/Ghost_spawn2.wav"

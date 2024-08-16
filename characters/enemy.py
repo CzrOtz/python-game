@@ -83,6 +83,7 @@ class Ghost(Enemy):
         self.braking_distance = config["braking_distance"]
         self.speed_modified = False  # Track if speed has been modified
         self.health = config["health"]
+        self.attack_power = config["attack_power"]
 
         # Load the sound file for when the ghost is hit
         self.hit_sound = pygame.mixer.Sound(config["hit_by_weapon"])

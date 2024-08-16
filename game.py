@@ -5,12 +5,12 @@ from characters.hero import Hero
 from characters.hero import deploy_hero
 from new_map.map_behavior import Map
 from characters.ghost_manager import GhostManager
-from characters.ghost_manager import deploy_ghosts
 from characters.weapon import Weapon
-from configurations.navbar_and_clock import Navbar
-from configurations.navbar_and_clock import GameClock
+from configurations.navbar_and_clock import Navbar, GameClock
 from configurations.game_difficulty import Difficulty
-
+from characters.collision_manager import CollisionManager  # Import the new CollisionManager class
+from configurations.config import ghost_spawn_config
+from configurations.config import ghost_config_template
 
 # Initialize Pygame
 pygame.init()
@@ -31,11 +31,13 @@ navbar = Navbar(config.screen, config.SCREEN_WIDTH, 50, hero, weapon)
 # Initialize GhostManager
 ghost_manager = GhostManager(config.ghost_spawn_config, navbar)
 
+# Initialize CollisionManager
+collision_manager = CollisionManager(navbar)
 
 game_clock = navbar.game_clock  # Use the clock from the navbar
 
 # Initialize Difficulty
-difficulty = Difficulty(game_clock, )
+difficulty = Difficulty(game_clock, config.ghost_spawn_config, config.ghost_config_template, hero, config.difficulty_config)
 
 # Main game loop
 def main():
@@ -55,7 +57,11 @@ def main():
         game_map.draw()
 
         deploy_hero(hero, game_map, config.screen, game_map.offset_x, game_map.offset_y)
-        deploy_ghosts(hero, game_map, weapon, ghost_manager)
+        ghost_manager.update_position(hero, game_map)
+
+        # Handle collisions
+        collision_manager.check_hero_ghost_collisions(hero, ghost_manager.ghosts)
+        collision_manager.check_weapon_ghost_collisions(weapon, ghost_manager.ghosts)
 
         weapon.display(config.screen, game_map.offset_x, game_map.offset_y)
         weapon.update_position(hero)
@@ -75,8 +81,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
 
 
 
