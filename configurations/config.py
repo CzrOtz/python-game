@@ -6,9 +6,9 @@ import random
 SCREEN_WIDTH = 1100
 SCREEN_HEIGHT = 1000
 FPS = 60
-scale = 3
+scale = 4
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Endless Runner Prototype")
+pygame.display.set_caption("Endless War")
 clock = pygame.time.Clock()
 
 
@@ -18,11 +18,11 @@ initial_ghost_quantity = 1
 level_up_sound = "characters/sounds/level_up.wav"
 
 difficulty_config = {
-    "time_between_levels": 10,  # Time in seconds for each difficulty increase
-    "spawn_rate_decrement": 500,  # Decrease spawn rate by 500ms each level
-    "speed_increment": 0.3,  # Increase ghost speed by 0.3 each level
-    "attack_power_increment": 0.5,  # Increase ghost attack power by 0.5 each level
-    "braking_distance_decrement": 5,  # Decrease braking distance by 5 each level
+    "time_between_levels": 5,  # Time in seconds for each difficulty increase
+    "spawn_rate_decrement": 500,  # Dee ghost speedcrease spawn rate by 500ms each level
+    "speed_increment": 0.3,  # Increas by 0.3 each level
+    "attack_power_increment": 0.3,  # Increase ghost attack power by 0.5 each level
+    "braking_distance_decrement": 3,  # Decrease braking distance by 5 each level
 }
 
 maps = {
@@ -45,7 +45,7 @@ map_config = {
 }
 
 hero_config = {
-    "pos_x":200,
+    "pos_x":190,
     "pos_y": 250,
     "speed": 2,
     "scale": scale,
@@ -58,9 +58,9 @@ hero_config = {
 }
 
 hero_weapon_config = {
-    "damage": 34,
+    "damage": 100,
     "range": 10,
-    "speed": 25,
+    "speed": 75,
     "scale": scale - 1.2,
     "sprite_path": "characters/pngBank/tile_0131.png",
     "pointer_sp": "characters/pngBank/tile_0101.png",

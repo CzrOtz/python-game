@@ -8,18 +8,19 @@ from characters.ghost_manager import GhostManager
 from characters.weapon import Weapon
 from configurations.navbar_and_clock import Navbar, GameClock
 from configurations.game_difficulty import Difficulty
-from characters.collision_manager import CollisionManager  # Import the new CollisionManager class
-from configurations.config import ghost_spawn_config
-from configurations.config import ghost_config_template
+from characters.collision_manager import CollisionManager
 
 # Initialize Pygame
 pygame.init()
+pygame.mixer.init()
+pygame.mixer.set_num_channels(32)
 
 clock = config.clock
 
 # Initialize hero
 hero = Hero(config.hero_config)
 
+# Initialize weapon
 weapon = Weapon(config.hero_weapon_config, hero)
 
 # Initialize map
@@ -48,7 +49,6 @@ def main():
                 running = False
             elif event.type == ghost_manager.add_ghost_event:
                 ghost_manager.add_new_ghost()
-                pass
             else:
                 hero.movement_flags(event)
                 weapon.launch_attack(event, game_map.offset_x, game_map.offset_y)
@@ -65,10 +65,11 @@ def main():
 
         weapon.display(config.screen, game_map.offset_x, game_map.offset_y)
         weapon.update_position(hero)
-        weapon.fire(hero, game_map.map_width, game_map.map_height, game_map)
+        weapon.fire(game_map.map_width, game_map.map_height, game_map)
 
         # Check and update the difficulty based on time
         difficulty.check_and_update_difficulty()
+        difficulty.render_level_display(config.screen)
 
         # Render the navbar
         navbar.render()
@@ -81,6 +82,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 

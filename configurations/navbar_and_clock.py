@@ -23,7 +23,7 @@ class Navbar:
         # Initialize variables
         self.kill_count = 0  # Enemy kill count
         self.hero_speed = hero.speed  # Hero speed (placeholder)
-        self.weapon_range = "n/a"  # Weapon range (placeholder)
+        # self.weapon_range = "n/a"  # Weapon range (placeholder)
         self.weapon_damage = weapon.damage  # Weapon damage (placeholder)
         self.hero_health = hero.health  # Hero health (placeholder)
         self.enemies_on_screen = 1  # Enemies on screen (placeholder)
@@ -37,8 +37,8 @@ class Navbar:
             self.kill_count = kill_count
         if hero_speed is not None:
             self.hero_speed = hero_speed
-        if weapon_range is not None:
-            self.weapon_range = weapon_range
+        # if weapon_range is not None:
+        #     self.weapon_range = weapon_range
         if weapon_damage is not None:
             self.weapon_damage = weapon_damage
         if hero_health is not None:
@@ -73,16 +73,16 @@ class Navbar:
         start_x += kill_count_surface.get_width() + 20  # Move x position for the next stat
         self.screen.blit(hero_speed_surface, (start_x, y_position))
 
-        # Render the weapon range next to the hero speed
-        weapon_range_string = f"Weapon Range: {self.weapon_range}"
-        weapon_range_surface = self.font.render(weapon_range_string, True, self.font_color)
-        start_x += hero_speed_surface.get_width() + 20  # Move x position for the next stat
-        self.screen.blit(weapon_range_surface, (start_x, y_position))
+        # # Render the weapon range next to the hero speed
+        # weapon_range_string = f"Weapon Range: {self.weapon_range}"
+        # weapon_range_surface = self.font.render(weapon_range_string, True, self.font_color)
+        # start_x += hero_speed_surface.get_width() + 20  # Move x position for the next stat
+        # self.screen.blit(weapon_range_surface, (start_x, y_position))
 
         # Render the weapon damage next to the weapon range
         weapon_damage_string = f"Weapon Damage: {self.weapon_damage}"
         weapon_damage_surface = self.font.render(weapon_damage_string, True, self.font_color)
-        start_x += weapon_range_surface.get_width() + 20  # Move x position for the next stat
+        start_x += hero_speed_surface.get_width() + 20  # Move x position for the next stat
         self.screen.blit(weapon_damage_surface, (start_x, y_position))
 
         # Render the hero health next to the weapon damage
