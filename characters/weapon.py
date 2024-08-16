@@ -2,7 +2,10 @@
 import pygame
 import math
 
-"""This class handles a long-range weapon that the hero can use"""
+"""
+Weapon oberves Hero -> no Weapon calls in Hero class
+
+"""
 
 class Weapon:
     def __init__(self, config, hero):

@@ -68,24 +68,31 @@ ghost_spawn_config = {
     "screen": screen,
     "scale": scale, 
 }
+
+ghost_config_template = {
+    "pos_x": 0,
+    "pos_y": 0,
+    "speed": 1.5,
+    "scale": scale,
+    "sprite_path": "characters/pngBank/tile_0108.png",
+    "braking_distance": 85,
+    "r_number_min": 1,
+    "r_number_max": 6,
+    "health": 100,
+    "hit_by_weapon": "characters/sounds/hit_marker2.wav",
+    "spawn_sound": "characters/sounds/Ghost_gone_4.wav",
+    "gone_sound": "characters/sounds/Ghost_spawn2.wav"
+}
+
 def generate_ghost_config():
     map_width = map_config["screen_width"]
     map_height = map_config["screen_height"]
 
-    return {
-        "pos_x": random.randint(0, map_width - 1),
-        "pos_y": random.randint(0, map_height - 1),
-        "speed": 1.5,
-        "scale": scale,
-        "sprite_path": "characters/pngBank/tile_0108.png",
-        "braking_distance": 85,
-        "r_number_min": 1,
-        "r_number_max": 6,
-        "health": 100,
-        "hit_by_weapon": "characters/sounds/hit_marker2.wav",
-        "spawn_sound": "characters/sounds/Ghost_gone_4.wav",
-        "gone_sound": "characters/sounds/Ghost_spawn2.wav"
-    }
+    ghost_config_template["pos_x"] = random.randint(0, map_width - 1)
+    ghost_config_template["pos_y"] = random.randint(0, map_height - 1)
+    ghost_config_template["scale"] = scale  # Set the actual scale value
+
+    return ghost_config_template
 
 
 

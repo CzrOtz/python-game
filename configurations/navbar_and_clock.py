@@ -1,9 +1,18 @@
 import pygame
 
+"""
+Navbar observes Hero parameters -> no Navbar calls in Hero class
+Navabr observes Weapon parameters -> no Navbar calls in Weapon class
+
+GhosManager class modifies Navbar -> 3 calls from GhostManager to Navbar
+enemies_on_screen +/-= 1
+kill_count += 1
+
+"""
 
 # Navbar Class
 class Navbar:
-    def __init__(self, screen, width, height, font_size=24, bg_color=(0, 0, 0), font_color=(255, 255, 255)):
+    def __init__(self, screen, width, height, hero, weapon,font_size=24, bg_color=(0, 0, 0), font_color=(255, 255, 255)):
         self.screen = screen
         self.width = width
         self.height = height
@@ -13,10 +22,10 @@ class Navbar:
 
         # Initialize variables
         self.kill_count = 0  # Enemy kill count
-        self.hero_speed = 0  # Hero speed (placeholder)
-        self.weapon_range = 0  # Weapon range (placeholder)
-        self.weapon_damage = 0  # Weapon damage (placeholder)
-        self.hero_health = 0  # Hero health (placeholder)
+        self.hero_speed = hero.speed  # Hero speed (placeholder)
+        self.weapon_range = "n/a"  # Weapon range (placeholder)
+        self.weapon_damage = weapon.damage  # Weapon damage (placeholder)
+        self.hero_health = hero.health  # Hero health (placeholder)
         self.enemies_on_screen = 1  # Enemies on screen (placeholder)
 
         # Initialize the GameClock

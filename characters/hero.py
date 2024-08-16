@@ -1,6 +1,29 @@
 #hero.py
 import pygame
 
+"""
+Hearo in ghost Ghost manager
+-> collision detection using masks
+-> ghost.master_movement(hero)
+-> mask overlap
+-> hero.health -= 0.5
+
+Hero in enemy
+-> hero.pos_x , hero.pos_y
+
+Hero in Weapon
+-> hero.pos_x, hero.pos_y
+
+Hero in game
+-> hero
+-> weapon
+-> navbar
+
+
+
+
+"""
+
 class Hero:
     def __init__(self, config):
         self.pos_x = config["pos_x"] * config["scale"]

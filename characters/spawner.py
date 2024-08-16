@@ -1,8 +1,8 @@
 #spawner.py
 import pygame
 from characters.enemy import Ghost
-from config import generate_ghost_config
-from navbar.navbar_and_clock import Navbar
+from configurations.config import generate_ghost_config
+from configurations.navbar_and_clock import Navbar
 
 """variable set to true if the ghost is hit by the weapon"""
 """this will only allow the ghost to be hit once"""
@@ -57,17 +57,18 @@ class GhostManager:
             # Check collision between hero and ghost
             if hero_mask.overlap(ghost_mask, (ghost_mask_offset[0] - hero_mask_offset[0], ghost_mask_offset[1] - hero_mask_offset[1])):
                 hero.health -= 0.5
+                self.navbar.hero_health = hero.health
 
             # Check collision between weapon and ghost
             if weapon_mask.overlap(ghost_mask, (ghost_mask_offset[0] - weapon_mask_offset[0], ghost_mask_offset[1] - weapon_mask_offset[1])) and weapon.attack:
                 if not ghost.hit_registered:
-                    ghost.reduce_health(ghost, weapon)
+                    ghost.reduce_health(weapon)
                     ghost.hit_sound.play()
                     ghost.show_hit_marker()
                     ghost.hit_ammount += 1
                     ghost.hit_registered = True  # Mark ghost as hit
-                    print(f'ammount of hits: {ghost.hit_ammount}')
-                    print(f'ghost health: {ghost.health}')
+                    # print(f'ammount of hits: {ghost.hit_ammount}')
+                    # print(f'ghost health: {ghost.health}')
                     
 
                 if ghost.health <= 0:

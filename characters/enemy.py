@@ -101,6 +101,7 @@ class Ghost(Enemy):
 
     def master_movement(self, hero):
         # Calculate the distance between the ghost and the hero
+        
         distance = ((hero.pos_x - self.pos_x) ** 2 + (hero.pos_y - self.pos_y) ** 2) ** 0.5
 
         if distance < self.braking_distance:
@@ -135,8 +136,8 @@ class Ghost(Enemy):
         """Play the sound when the ghost is hit."""
         self.hit_sound.play()
     
-    def reduce_health(self, ghost, weapon):
-        print("reducing health")
+    def reduce_health(self, weapon):
+        # print("reducing health")
         self.health -= weapon.damage
         self.show_hit_marker()
 
