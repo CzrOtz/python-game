@@ -18,11 +18,11 @@ initial_ghost_quantity = 1
 level_up_sound = "characters/sounds/level_up.wav"
 
 difficulty_config = {
-    "time_between_levels": 5,  # Time in seconds for each difficulty increase
-    "spawn_rate_decrement": 500,  # Dee ghost speedcrease spawn rate by 500ms each level
-    "speed_increment": 0.3,  # Increas by 0.3 each level
-    "attack_power_increment": 0.3,  # Increase ghost attack power by 0.5 each level
-    "braking_distance_decrement": 3,  # Decrease braking distance by 5 each level
+    "time_between_levels": 45,  # Time in seconds for each difficulty increase
+    "spawn_rate_decrement": 100,  # Dee ghost speedcrease spawn rate by 500ms each level
+    "speed_increment": 0.2,  # Increas by 0.3 each level
+    "attack_power_increment": 0.1,  # Increase ghost attack power by 0.5 each level
+    "braking_distance_decrement": 1,  # Decrease braking distance by 5 each level
 }
 
 maps = {
@@ -58,9 +58,9 @@ hero_config = {
 }
 
 hero_weapon_config = {
-    "damage": 100,
+    "damage": 34,
     "range": 10,
-    "speed": 75,
+    "speed": 20,
     "scale": scale - 1.2,
     "sprite_path": "characters/pngBank/tile_0131.png",
     "pointer_sp": "characters/pngBank/tile_0101.png",

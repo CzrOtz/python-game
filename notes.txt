@@ -55,4 +55,11 @@ all enemies are wiped from the screen and only ghost will spawn
 
 
 
+you get a key, you take that key to a safe, then you open it, each safe has a certain number of keys you must obtain 
+
+the more you wait, the higher the reward gets/ if you collect a certain number of keys, one section of the map opens, you must find the golden key
+to finish the level
+
+
+
 

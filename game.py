@@ -47,11 +47,13 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            elif event.type == ghost_manager.add_ghost_event:
+            elif event.type == ghost_manager.add_ghost_event: #the bug is here the bug is here
                 ghost_manager.add_new_ghost()
             else:
                 hero.movement_flags(event)
                 weapon.launch_attack(event, game_map.offset_x, game_map.offset_y)
+            
+       
 
         game_map.update_offset(hero.pos_x, hero.pos_y)
         game_map.draw()
@@ -70,6 +72,8 @@ def main():
         # Check and update the difficulty based on time
         difficulty.check_and_update_difficulty()
         difficulty.render_level_display(config.screen)
+
+       
 
         # Render the navbar
         navbar.render()

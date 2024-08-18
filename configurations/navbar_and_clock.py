@@ -23,7 +23,6 @@ class Navbar:
         # Initialize variables
         self.kill_count = 0  # Enemy kill count
         self.hero_speed = hero.speed  # Hero speed (placeholder)
-        # self.weapon_range = "n/a"  # Weapon range (placeholder)
         self.weapon_damage = weapon.damage  # Weapon damage (placeholder)
         self.hero_health = hero.health  # Hero health (placeholder)
         self.enemies_on_screen = 1  # Enemies on screen (placeholder)
@@ -86,7 +85,7 @@ class Navbar:
         self.screen.blit(weapon_damage_surface, (start_x, y_position))
 
         # Render the hero health next to the weapon damage
-        hero_health_string = f"Hero Health: {self.hero_health}"
+        hero_health_string = f"Hero Health: {round(self.hero_health, 2)}"
         hero_health_surface = self.font.render(hero_health_string, True, self.font_color)
         start_x += weapon_damage_surface.get_width() + 20  # Move x position for the next stat
         self.screen.blit(hero_health_surface, (start_x, y_position))
