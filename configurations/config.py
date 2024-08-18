@@ -2,11 +2,22 @@
 import pygame
 import random
 
+#1 for laptop 2 for desktop
+
+settup = "1"
 # Screen settings
-SCREEN_WIDTH = 1100
-SCREEN_HEIGHT = 1000
+
+if settup == "1":
+    SCREEN_WIDTH = 1200
+    SCREEN_HEIGHT = 700
+    scale = 3
+elif settup == "2":
+    SCREEN_WIDTH = 1200
+    SCREEN_HEIGHT = 1100
+    scale = 4
+
+
 FPS = 60
-scale = 4
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Endless War")
 clock = pygame.time.Clock()
