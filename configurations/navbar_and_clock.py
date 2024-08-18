@@ -1,18 +1,8 @@
 import pygame
 
-"""
-Navbar observes Hero parameters -> no Navbar calls in Hero class
-Navabr observes Weapon parameters -> no Navbar calls in Weapon class
-
-GhosManager class modifies Navbar -> 3 calls from GhostManager to Navbar
-enemies_on_screen +/-= 1
-kill_count += 1
-
-"""
-
 # Navbar Class
 class Navbar:
-    def __init__(self, screen, width, height, hero, weapon,font_size=24, bg_color=(0, 0, 0), font_color=(255, 255, 255)):
+    def __init__(self, screen, width, height, hero, weapon, font_size=24, bg_color=(0, 0, 0), font_color=(255, 255, 255)):
         self.screen = screen
         self.width = width
         self.height = height
@@ -24,28 +14,29 @@ class Navbar:
         self.kill_count = 0  # Enemy kill count
         self.hero_speed = hero.speed  # Hero speed (placeholder)
         self.weapon_damage = weapon.damage  # Weapon damage (placeholder)
+        self.weapon_speed = weapon.attack_speed  # Weapon speed (placeholder)
         self.hero_health = hero.health  # Hero health (placeholder)
         self.enemies_on_screen = 1  # Enemies on screen (placeholder)
 
         # Initialize the GameClock
         self.game_clock = GameClock(screen, font_size, font_color)
 
-    def update_stats(self, kill_count=None, hero_speed=None, weapon_range=None, weapon_damage=None, hero_health=None, enemies_on_screen=None):
+    def update_stats(self, kill_count=None, hero_speed=None, weapon_damage=None, weapon_speed=None, hero_health=None, enemies_on_screen=None):
         """Update the statistics displayed in the navbar."""
         if kill_count is not None:
             self.kill_count = kill_count
         if hero_speed is not None:
             self.hero_speed = hero_speed
-        # if weapon_range is not None:
-        #     self.weapon_range = weapon_range
         if weapon_damage is not None:
             self.weapon_damage = weapon_damage
+        if weapon_speed is not None:
+            self.weapon_speed = weapon_speed
         if hero_health is not None:
             self.hero_health = hero_health
         if enemies_on_screen is not None:
             self.enemies_on_screen = enemies_on_screen
 
-    def render(self):
+    def render(self, hero, weapon):
         """Render the navbar with all stats."""
         # Draw the navbar background
         pygame.draw.rect(self.screen, self.bg_color, pygame.Rect(0, 0, self.width, self.height))
@@ -67,27 +58,27 @@ class Navbar:
         self.screen.blit(kill_count_surface, (start_x, y_position))
 
         # Render the hero speed next to the kill count
-        hero_speed_string = f"Hero Speed: {self.hero_speed}"
+        hero_speed_string = f"Hero Speed: {hero.speed}"
         hero_speed_surface = self.font.render(hero_speed_string, True, self.font_color)
         start_x += kill_count_surface.get_width() + 20  # Move x position for the next stat
         self.screen.blit(hero_speed_surface, (start_x, y_position))
 
-        # # Render the weapon range next to the hero speed
-        # weapon_range_string = f"Weapon Range: {self.weapon_range}"
-        # weapon_range_surface = self.font.render(weapon_range_string, True, self.font_color)
-        # start_x += hero_speed_surface.get_width() + 20  # Move x position for the next stat
-        # self.screen.blit(weapon_range_surface, (start_x, y_position))
-
-        # Render the weapon damage next to the weapon range
-        weapon_damage_string = f"Weapon Damage: {self.weapon_damage}"
+        # Render the weapon damage next to the hero speed
+        weapon_damage_string = f"Weapon Damage: {weapon.damage}"
         weapon_damage_surface = self.font.render(weapon_damage_string, True, self.font_color)
         start_x += hero_speed_surface.get_width() + 20  # Move x position for the next stat
         self.screen.blit(weapon_damage_surface, (start_x, y_position))
 
-        # Render the hero health next to the weapon damage
-        hero_health_string = f"Hero Health: {round(self.hero_health, 2)}"
-        hero_health_surface = self.font.render(hero_health_string, True, self.font_color)
+        # Render the weapon speed next to the weapon damage
+        weapon_speed_string = f"Weapon Speed: {weapon.attack_speed}"
+        weapon_speed_surface = self.font.render(weapon_speed_string, True, self.font_color)
         start_x += weapon_damage_surface.get_width() + 20  # Move x position for the next stat
+        self.screen.blit(weapon_speed_surface, (start_x, y_position))
+
+        # Render the hero health next to the weapon speed
+        hero_health_string = f"Hero Health: {round(hero.health, 2)}"
+        hero_health_surface = self.font.render(hero_health_string, True, self.font_color)
+        start_x += weapon_speed_surface.get_width() + 20  # Move x position for the next stat
         self.screen.blit(hero_health_surface, (start_x, y_position))
 
         # Render the enemies on screen next to the hero health

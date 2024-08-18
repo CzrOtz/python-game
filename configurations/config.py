@@ -4,7 +4,7 @@ import random
 
 #1 for laptop 2 for desktop
 
-settup = "1"
+settup = "2"
 # Screen settings
 
 if settup == "1":
@@ -12,9 +12,9 @@ if settup == "1":
     SCREEN_HEIGHT = 700
     scale = 3
 elif settup == "2":
-    SCREEN_WIDTH = 1200
+    SCREEN_WIDTH = 1500
     SCREEN_HEIGHT = 1100
-    scale = 4
+    scale = 3
 
 
 FPS = 60
@@ -42,6 +42,24 @@ maps = {
     "beta2": "new_map/debug1.tmx",
     "beta3": "new_map/beta3.tmx",
     
+}
+
+power_up_manager_config = {
+    "scale": scale,
+    "gray_bottle": "characters/pngBank/tile_0113.png",
+    "green_bottle": "characters/pngBank/tile_0114.png",
+    "red_bottle": "characters/pngBank/tile_0115.png",
+    "blue_bottle": "characters/pngBank/tile_0116.png",
+    "max_power_ups": 2,  # Maximum number of power-ups on the screen
+    "min_spawn_interval": 5000,  # Minimum interval between spawns in milliseconds
+    "max_spawn_interval": 15000,  # Maximum interval between spawns in milliseconds
+
+    # Power-up effects
+    "gray_bottle_attack_speed_increase": 1,  # Attack speed increase for gray bottle
+    "green_bottle_speed_increase": 1,  # Speed increase for green bottle
+    "red_bottle_damage_increase": 5,  # Damage increase for red bottle
+    "blue_bottle_health_increase": 10,  # Health increase for blue bottle
+    "power_up_lifespan": 10000,  # Power-ups stay on screen for 10 seconds (10,000 ms)
 }
 
 map_config = {
