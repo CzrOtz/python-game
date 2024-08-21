@@ -32,7 +32,7 @@ difficulty_config = {
     "time_between_levels": 45,  # Time in seconds for each difficulty increase
     "spawn_rate_decrement": 100,  # Dee ghost speedcrease spawn rate by 500ms each level
     "speed_increment": 0.2,  # Increas by 0.3 each level
-    "attack_power_increment": 0.1,  # Increase ghost attack power by 0.5 each level
+    "attack_power_increment": 0.01,  # Increase ghost attack power by 0.5 each level
     "braking_distance_decrement": 1,  # Decrease braking distance by 5 each level
 }
 
@@ -55,10 +55,10 @@ power_up_manager_config = {
     "max_spawn_interval": 15000,  # Maximum interval between spawns in milliseconds
 
     # Power-up effects
-    "gray_bottle_attack_speed_increase": 1,  # Attack speed increase for gray bottle
+    "gray_bottle_attack_speed_increase": 3,  # Attack speed increase for gray bottle
     "green_bottle_speed_increase": 1,  # Speed increase for green bottle
     "red_bottle_damage_increase": 5,  # Damage increase for red bottle
-    "blue_bottle_health_increase": 10,  # Health increase for blue bottle
+    "blue_bottle_health_increase": 20,  # Health increase for blue bottle
     "power_up_lifespan": 10000,  # Power-ups stay on screen for 10 seconds (10,000 ms)
 }
 
@@ -87,7 +87,7 @@ hero_config = {
 }
 
 hero_weapon_config = {
-    "damage": 34,
+    "damage": 35,
     "range": 10,
     "speed": 20,
     "scale": scale - 1.2,
