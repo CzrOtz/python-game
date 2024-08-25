@@ -1,3 +1,24 @@
 
 
 
+state = 1
+
+def main():
+
+if state == 1:
+    main_menu():
+    enter game through here
+    exit program through here
+    changes state to 2
+
+elif  state == 2:
+    game()
+    excecute game here
+    pause
+    changes state to 1 or 3 through the pause
+
+elif state == 3:
+    game_over()
+    enter main menu here
+    changes can change state to 3
+

@@ -17,7 +17,8 @@ class CollisionManager:
                 hero.health -= ghost.attack_power
                 self.navbar.hero_health = hero.health
                 hero.trigger_hurt_effect()
-
+                
+                
     def check_weapon_ghost_collisions(self, weapon, ghosts):
         """Check and handle collisions between the weapon and ghosts."""
         weapon_mask = weapon.get_mask()

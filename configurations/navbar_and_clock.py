@@ -58,6 +58,11 @@ class Navbar:
         self.screen.blit(kill_count_surface, (start_x, y_position))
 
         # Render the hero speed next to the kill count
+        #hero speed is multiplied by scale, so the scale affects the speed
+        #this keeps things relative to the scale
+        #if you want to display the true speed, you need to pass config 
+        #and then divide hero speed by scale
+        #but this will cause decimals, its best to leave it as is
         hero_speed_string = f"Hero Speed: {hero.speed}"
         hero_speed_surface = self.font.render(hero_speed_string, True, self.font_color)
         start_x += kill_count_surface.get_width() + 20  # Move x position for the next stat

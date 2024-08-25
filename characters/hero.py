@@ -57,6 +57,7 @@ class Hero:
 
     def move_up(self):
         self.pos_y -= self.speed
+        
 
     def move_down(self):
         self.pos_y += self.speed

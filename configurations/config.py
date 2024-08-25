@@ -14,7 +14,7 @@ if settup == "1":
 elif settup == "2":
     SCREEN_WIDTH = 1500
     SCREEN_HEIGHT = 1100
-    scale = 3
+    scale = 4
 
 
 FPS = 60
@@ -76,7 +76,7 @@ map_config = {
 hero_config = {
     "pos_x":190,
     "pos_y": 250,
-    "speed": 2,
+    "speed": 1,
     "scale": scale,
     "sprite_path": "characters/pngBank/tile_0097.png",
     "screen_width": SCREEN_WIDTH,
