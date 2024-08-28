@@ -27,29 +27,30 @@ Hero in game
 
 class Hero:
     def __init__(self, config):
-        self.pos_x = config["pos_x"] * config["scale"]
-        self.pos_y = config["pos_y"] * config["scale"]
-        self.speed = config["speed"] * config["scale"]
+        self.config = config
+        self.sprite = pygame.image.load(config["sprite_path"]).convert_alpha()
+        self.scale = config["scale"]
+        self.sprite = pygame.transform.scale(
+            self.sprite, 
+            (int(self.sprite.get_width() * self.scale), int(self.sprite.get_height() * self.scale))
+        )
+        self.width = self.sprite.get_width()
+        self.height = self.sprite.get_height()
+        self.mask = pygame.mask.from_surface(self.sprite)
+        self.hurt_time = 0
+        self.hurt_duration = 0.5  # Duration for which the hurt mask is shown
+        self.reset()
         self.moving_left = False
         self.moving_right = False
         self.moving_up = False
         self.moving_down = False
-        self.scale = config["scale"]
-        self.config = config
-        self.health = config["health"]
 
-        # Load the sprite directly from the PNG file
-        self.sprite = pygame.image.load(config["sprite_path"]).convert_alpha()
-        self.width = self.sprite.get_width()
-        self.height = self.sprite.get_height()
-        self.sprite = pygame.transform.scale(self.sprite, (self.width * self.scale, self.height * self.scale))
-
-        # Create a mask for pixel-perfect collision detection
-        self.mask = pygame.mask.from_surface(self.sprite)
-
-        # Hurt effect attributes
-        self.hurt_time = 0  # Time when the hero was last hurt
-        self.hurt_duration = 0.1  # Duration of the hurt effect in seconds
+    def reset(self):
+        self.pos_x = self.config["pos_x"]
+        self.pos_y = self.config["pos_y"]
+        self.speed = self.config["speed"]
+        self.health = self.config["health"]
+        # Reset other attributes as necessary
 
     def display(self, screen, offset_x, offset_y):
         screen.blit(self.sprite, (self.pos_x - offset_x, self.pos_y - offset_y))

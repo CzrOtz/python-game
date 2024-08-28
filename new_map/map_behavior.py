@@ -167,7 +167,12 @@ class Map:
     
         print("----- End of Drawing Coordinate Inspection -----")
 
-    
+    def reset(self):
+        # Reset map to its initial state
+        self.offset_x = 0
+        self.offset_y = 0
+        # Reset any other relevant attributes
+
     
 
 

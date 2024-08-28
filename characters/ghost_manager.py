@@ -4,15 +4,20 @@ from configurations.config import generate_ghost_config
 
 class GhostManager:
     def __init__(self, config, navbar):
-        self.ghosts = []
-        self.screen = config["screen"]
-        self.scale = config["scale"]
-        self.spawn_rate = config["spawn_rate"]
-        self.add_ghost_event = pygame.USEREVENT + 1
-        pygame.time.set_timer(self.add_ghost_event, self.spawn_rate)  # Add a new ghost every `spawn_rate` milliseconds
-        self.initial_ghost_quantity = config["initial_ghost_quantity"]
-        self._generate_initial_ghosts()
+        self.config = config
         self.navbar = navbar
+        self.reset()
+
+    def reset(self):
+        self.ghosts = []
+        self.screen = self.config["screen"]
+        self.scale = self.config["scale"]
+        self.spawn_rate = self.config["spawn_rate"]
+        self.add_ghost_event = pygame.USEREVENT + 1
+        pygame.time.set_timer(self.add_ghost_event, self.spawn_rate)
+        self.initial_ghost_quantity = self.config["initial_ghost_quantity"]
+        self._generate_initial_ghosts()
+        self.navbar.enemies_on_screen = 0
 
     def _generate_initial_ghosts(self):
         """Generates the initial ghosts based on the configuration."""
@@ -56,4 +61,3 @@ class GhostManager:
         for ghost in self.ghosts:
             ghost.draw_mask(self.screen, game_map)
 
-    

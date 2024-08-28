@@ -10,6 +10,10 @@ class Navbar:
         self.font_color = font_color
         self.font = pygame.font.Font(None, font_size)
 
+        # Store references to hero and weapon
+        self.hero = hero
+        self.weapon = weapon
+
         # Initialize variables
         self.kill_count = 0  # Enemy kill count
         self.hero_speed = hero.speed  # Hero speed (placeholder)
@@ -58,11 +62,6 @@ class Navbar:
         self.screen.blit(kill_count_surface, (start_x, y_position))
 
         # Render the hero speed next to the kill count
-        #hero speed is multiplied by scale, so the scale affects the speed
-        #this keeps things relative to the scale
-        #if you want to display the true speed, you need to pass config 
-        #and then divide hero speed by scale
-        #but this will cause decimals, its best to leave it as is
         hero_speed_string = f"Hero Speed: {hero.speed}"
         hero_speed_surface = self.font.render(hero_speed_string, True, self.font_color)
         start_x += kill_count_surface.get_width() + 20  # Move x position for the next stat
@@ -91,6 +90,15 @@ class Navbar:
         enemies_on_screen_surface = self.font.render(enemies_on_screen_string, True, self.font_color)
         start_x += hero_health_surface.get_width() + 20  # Move x position for the next stat
         self.screen.blit(enemies_on_screen_surface, (start_x, y_position))
+
+    def reset_score(self):
+        self.kill_count = 0
+        self.hero_speed = self.hero.speed
+        self.weapon_damage = self.weapon.damage
+        self.weapon_speed = self.weapon.attack_speed
+        self.hero_health = self.hero.health
+        self.enemies_on_screen = 0
+        # Reset any other relevant attributes
 
 # GameClock Class
 class GameClock:

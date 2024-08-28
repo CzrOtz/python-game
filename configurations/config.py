@@ -76,7 +76,7 @@ map_config = {
 hero_config = {
     "pos_x":190,
     "pos_y": 250,
-    "speed": 1,
+    "speed": 2,
     "scale": scale,
     "sprite_path": "characters/pngBank/tile_0097.png",
     "screen_width": SCREEN_WIDTH,

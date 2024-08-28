@@ -33,28 +33,37 @@ power_up_manager = PowerUpManager(config.power_up_manager_config, game_map)
 game_clock = navbar.game_clock  # Use the clock from the navbar
 difficulty = Difficulty(game_clock, config.ghost_spawn_config, config.ghost_config_template, hero, config.difficulty_config)
 
-
-
-
 # Main game loop
 def main():
-    global state  # Allow modification of the state variable
+    global state, hero, weapon, ghost_manager
+
     running = True
 
     while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                state = 0  # Set state to 0 to exit the game
+                running = False
+
         print(f'Game in state {state}')
         
         if state == 1:
-            state = main_menu(config.screen)  # Execute the main menu and update the state based on user input
+            state = main_menu(config.screen)
         elif state == 2:
-            state = run_game(hero, weapon, game_map, ghost_manager, collision_manager, power_up_manager, difficulty, navbar, clock)  # Run the game
-            # The state will be set to 3 if hero health is <= 0
+            state = run_game(hero, weapon, game_map, ghost_manager, collision_manager, power_up_manager, difficulty, navbar, clock)
         elif state == 3:
-            state = game_over(config.screen)  # Automatically transition to game over
-            if state == 1:  # If the user chooses to return to the main menu
-                print("Returning to main menu.")
-            elif state == 0:  # If the user chooses to quit from the game over screen
-                running = False
+            state = game_over(config.screen)
+        
+        if state == 0:  # Exit condition
+            running = False
+
+        # Reset game objects if returning to main menu
+        if state == 1:
+            hero.reset()
+            weapon = Weapon(config.hero_weapon_config, hero)
+            ghost_manager.reset()
+            navbar.reset_score()
+            game_map.reset()
 
     pygame.quit()
     sys.exit()
